@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta  content="text/html; charset=windows-1252"  http-equiv="content-type">
+    <title>MathJax TeX Test Page</title>
+    <script  type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script> <script  type="text/javascript"  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> </head>
+  <body> <strong>Notice:</strong> This is the overview of basic and important
+    machine learning models, methods and concepts and theories. I acknowledge
+    all information and knowledge including images, data... I have taken from
+    those 2 courses: <a target="_blank" href="https://www.coursera.org/learn/machine-learning">https://www.coursera.org/learn/machine-learning</a>
+    and <a target="_blank" href="http://classes.engr.oregonstate.edu/eecs/fall2015/cs534/">http://classes.engr.oregonstate.edu/eecs/fall2015/cs534/</a>.
+    You can download the whole article of summarizing Machine Learning at here:
+    <a  target="_blank"  href="http://web.engr.oregonstate.edu/%7Enguyenkh/ml-summary.pdf">http://web.engr.oregonstate.edu/~nguyenkh/ml-summary.pdf</a><br>
+    <br>
+    Our series comprise of following topics:<br>
+    <ul>
+      <li><a  target="_blank"  href="http://www.nguyenducminhkhoi.com/2015/11/introduction-to-machine-learning.html">Section
+          1</a>: Introduction, Linear regression, Generative and Discriminative
+        Model, Perceptron, Logistic Regression, Naive Bayes and Gaussian
+        Discriminant Analysis</li>
+      <li><a  target="_blank"  href="http://www.nguyenducminhkhoi.com/2015/12/introduction-to-machine-learning.html">Section
+          2</a>: Four important Discriminative Models: K-Nearest Neighbors,
+        Support Vector Machine, Decision Tree and Neural Network</li>
+      <li><a  target="_blank"  href="http://www.nguyenducminhkhoi.com/2015/12/introduction-to-machine-learning_8.html">Section
+          3</a>: Ensemble Methods (Bagging, Random Forest, Boosting) and
+        Clustering (HAC, KMeans, GMM, Spectral Clustering) <strong>(this post)</strong></li>
+      <li><a  target="_blank"  href="http://www.nguyenducminhkhoi.com/2015/12/introduction-to-machine-learningsection4.html">Section
+          4</a>: Dimension Reduction, Major problems in Machine Learning, ML
+        libraries and Summaries&nbsp;</li>
+    </ul>
+    <br>
+    In the last section in "Introduction to Machine Learning" series. We
+    discussed about the 4 powerful Discriminative model. They are K-Nearest
+    Neighbors, Support Vector Machine, Decision Tree and Neural Network. All of
+    them can be used for both regression and classification task in Supervised
+    Learning. Furthermore, Neural Network can be used for clustering too with a
+    well-known model called Self-Organizing map (SOM). Today's section, we will
+    discuss some other supervised learning model <strong>called Ensemble</strong>
+    methods like <strong>Bagging, Random Forest</strong> and <strong>Boosting</strong>
+    to complete the Supervised Learning at here. And then I will discuss <strong>Clustering</strong>
+    problem (or Unsupervised Learning). Now, let's get started!
+    <div  style="text-align: center;">
+      <div  style="text-align: left;">
+        <h3>Ensemble method</h3>
+        Ensemble methods use multiple learning algorithms to obtain better
+        predictive performance than could be obtained from any of the
+        constituent learning algorithms. We use different learning sets and/or
+        learning algorithms to make better performance. There have been a wide
+        range of methods developed. We will discuss some popular approaches: <strong>bagging</strong>
+        (and <strong>Random Forest</strong>, a variant that builds
+        de-correlated trees) and <strong>boosting</strong>. Both methods take a
+        single (base) learning algorithm (learner) and generate ensembles. <br>
+        <br>
+        <h4>Bagging</h4>
+        Given training set S, bagging works as follows:<br>
+        <ol>
+          <li>Create T bootstrap samples ${S_1, \ldots, S_T}$ of $S$ as follows:</li>
+          <ul>
+            <li>For each $S_i$: Randomly drawing $|S|$ examples from S with <strong>replacement</strong></li>
+            <li>Note: with large $|S|$, each $S_i$ will contain $1 - \frac{1}{e}
+              \approx 63.2\% $ unique examples</li>
+          </ul>
+          <li>For each $i = 1, \ldots, T$ compute $h_i = Learn(S_i)$</li>
+          <li>Output $H = &lt;{h_1, \ldots, h_T}, \text{majority Vote}&gt;$</li>
+        </ol>
+        <p>Next we discuss the stability of Learner. A learning algorithm is <strong>unstable
+            </strong>if small changes in the training data can produce large
+          changes in the output hypothesis or <strong>high variance</strong>,
+          otherwise stable. Bagging will have little benefit when used with
+          stable learning algorithms (i.e, most ensemble members will be very
+          similar). Bagging generally works best when used with unstable yet
+          relatively accurate base learners (or high variance and low bias
+          classifiers). We usually use Bagging with Decision Tree because it is
+          a high variance algorithm, especially Decision Stump (a tree with a
+          singular node). Another example of high variance learner is high order
+          polynomial linear regression....</p>
+        <h4>Random Forest</h4>
+        <p>Random Forest is an extension of bagging. It builds an ensemble of
+          de-correlated decision trees. It is one of the most successful
+          classifiers in current practice because it is very fast, easy to train
+          and there are many good implements available. Each bootstrapped sample
+          is used to build a tree. When building the tree, each node only
+          chooses from $m &lt; M$ randomly sampled <strong>features</strong>.
+          In other words, it combines "bagging" idea and random selection of
+          features. <strong>Gini index</strong> is used to select the test just
+          like in <strong>C4.5</strong>. </p>
+        <img  style="width: 569px; height: 342px;"  src="random_forest.png"><br>
+        To read more about Random Forest, you can look at <a  href="http://www.stat.berkeley.edu/%7Ebreiman/RandomForests/cc_home.htm">http://www?stat.stanford.edu/~hastie/Papers/ESLII.pdf</a>.
+        There is also available package at here: <a  href="http://www.stat.berkeley.edu/%7Ebreiman/RandomForests/cc_home.htm">http://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm</a><br>
+        <h4>Boosting</h4>
+        <p>With bagging: individual classifiers were independently learned.
+          However, with Boosting, it looks at <strong>errors</strong> <strong>from
+            previous classifiers</strong> to decide what to <strong>focus</strong>
+          on for the next iteration over data. A successive classifier depends
+          on its predecessors. Thus, it puts more weights on 'hard' examples.
+          One popular boosting algorithm that shows highly effectiveness (very
+          often they outperform ensembles produced by bagging) is <strong>AdaBoost.
+            <br> </strong></p>
+        <p>AdaBoost works by invoking Learn many times on different
+          distributions over the training data set. So we need to modify base
+          learner protocol to accept a training set distribution as an input. It
+          indicates the base learner the importance of correctly classifying the
+          $i$'th training instance. AdaBoost performs $L$ boosting rounds, the
+          operations in each boosting round $l$ are:</p>
+        <ol>
+          <li>Call Learn on data set $S$ with distribution $D_l$ to produce
+            $l^{th}$ ensemble member $h_l$, where $D_l$ is the distribution of
+            round $l$.</li>
+          <li>Compute the $(l + 1)^{th}$ round distribution $D_{l+1}$ by putting
+            more weight on instances that $h_l$ makes mistakes on.</li>
+          <li>Compute a voting weight $\alpha_l$ for $h_l$.</li>
+          <li><strong>Output</strong> the ensemble hypothesis is: $H = &lt;{h_1,
+            \ldots, h_L}, \text{weighted Vote}(\alpha_1,\ldots, \alpha_L)&gt;$</li>
+        </ol>
+        <p>We have the following detailed AdaBoost algorithm:</p>
+        <img  style="width: 518px; height: 393px;"  src="ada.png">
+        <p>It is often straightforward to convert a base learner to take into
+          account an input distribution $D$. When it's not straightforward, we
+          can resample the training data according to $D$. Here are some
+          interesting facts about Boosting. Training error goes to zero
+          exponential fast. Boosting drives training error to zero, but it will
+          not overfit because boosting is often robust to overfitting (but not
+          always). Test error continues to decrease even after training error
+          goes to zero because Adaboost adds more classi?ers into our ensemble,
+          the training examples are getting larger margin (more confidence),
+          thus improving the performance of the ensemble on the test data. In
+          the order hand, boosting also has some pitfalls. It is sensitive to
+          noise and outliers. If the number of outliers is small number, they
+          can help to identify them. However, too many outliers can degrade
+          classification performance (boosting might end up putting more and
+          more weight on noise examples) and dramatically increase the time to
+          converge. This phenomenon does not happen in Bagging because the noise
+          does not get amplified and it could even be removed in boost-strap
+          sampling procedure.</p>
+        <p>We conclude the Ensemble method with the comparing properties between
+          Bagging and Boosting:</p>
+        <img  style="width: 531px; height: 241px;"  src="bag_boost.png"><br>
+        To this point, we complete all discussions about ensemble method as well
+        as classification problem and supervised learning. In the next section,
+        I will talk about clustering problem. <br>
+        <br>
+        <h2>Clustering</h2>
+        <h3>Introduction</h3>
+        <p>In unsupervised learning, there are many tasks like grouping of
+          clusters in the data, low dimensional... And the most important form
+          in Unsupervised Learning is Clustering. Clustering is the process of
+          grouping a set of objects into classes of similar objects with high
+          intra-class similarity and low inter-class similarity. For example,
+          find genes that are similar in their functions, group documents based
+          on topics and so on. An important aspect in clustering is how we
+          estimate the "similarity/distance" and what types of clustering. </p>
+        <p>First, the similarity is a philosophical question, so it depends on
+          representation and algorithm. For many algorithms, we usually use the
+          term of distance (rather than similarity) between vectors. To measure
+          distance, there are many ways, one way is using Minkowski Metric:</p>
+        <img  style="width: 444px; height: 267px;"  alt=""  src="distance.png"><br>
+        <img  style="width: 332px; height: 261px;"  alt=""  src="dis_example.png"><br>
+        Another way is using Hamming Distance and Mahalanobis distance as
+        follow:<br>
+        <img  style="width: 477px; height: 293px;"  alt=""  src="other_dis.png"><br>
+        Or we can directly define similarity by using cosine similarities or
+        kernels:<br>
+        <img  style="width: 344px; height: 211px;"  alt=""  src="sim.png"><br>
+        Next, we talk about types of clustering algorithms. There are 2 main
+        types: <strong>Hierarchical algorithms </strong>and<strong> Partition
+          algorithms. </strong>With Hierarchical algorithm, we have 2
+        approaches: Bottom up (agglomerative) and top down (divisive). We will
+        discuss more bottom up approach. In Partition algorithms, we have 3 main
+        algorithm, those are <strong>K-means</strong>, <strong>Mixture of
+          Gaussian (GMM)</strong> and <strong>Spectral Clustering</strong>.<br>
+        <br>
+        <h3>Hierarchical Agglomerative Clustering (HAC) </h3>
+        <p>HAC starts with each object in a separate cluster and repeatedly
+          joins the <strong>closest pair</strong> <strong>of clusters</strong>
+          until there is only one cluster. So how we define the closest pair of
+          clusters, there are 4 types: Single-link, complete-link, centroid and
+          average-link as described follow (table is taken from Wikipedia: <a  href="https://en.wikipedia.org/wiki/Hierarchical_clustering">https://en.wikipedia.org/wiki/Hierarchical_clustering</a></p>
+        <p> </p>
+        <table  class="wikitable"  style="font-size: 14px; margin: 1em 0px; border: 1px solid rgb(170, 170, 170); border-collapse: collapse; color: black; font-family: sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 22.4px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(249, 249, 249);">
+          <tbody>
+            <tr>
+              <th  style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em; text-align: center; background-color: rgb(242, 242, 242);">Names</th>
+              <th  style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em; text-align: center; background-color: rgb(242, 242, 242);">Formula</th>
+            </tr>
+            <tr>
+              <td  style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em;">Maximum
+                or<span  class="Apple-converted-space">&nbsp;</span><a  href="https://en.wikipedia.org/wiki/Complete-linkage_clustering"
+                   title="Complete-linkage clustering"
+                   style="text-decoration: none; color: rgb(11, 0, 128); background: none;">complete-linkage
+                  clustering</a></td>
+              <td  style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em;"><img
+                   class="mwe-math-fallback-image-inline tex"
+                   alt=" \max \, \{\, d(a,b) : a \in A,\, b \in B \,\}. "
+                   src="https://upload.wikimedia.org/math/d/5/a/d5a349ae7f762ff9ceb08e7c1b75221c.png"
+                   style="border: none; vertical-align: middle; display: inline-block;"></td>
+            </tr>
+            <tr>
+              <td  style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em;">Minimum
+                or<span  class="Apple-converted-space">&nbsp;</span><a  href="https://en.wikipedia.org/wiki/Single-linkage_clustering"
+                   title="Single-linkage clustering"
+                   style="text-decoration: none; color: rgb(11, 0, 128); background: none;">single-linkage
+                  clustering</a></td>
+              <td  style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em;"><img
+                   class="mwe-math-fallback-image-inline tex"
+                   alt=" \min \, \{\, d(a,b) : a \in A,\, b \in B \,\}. "
+                   src="https://upload.wikimedia.org/math/5/0/d/50dd90576e80aaa3104c2234959bf821.png"
+                   style="border: none; vertical-align: middle; display: inline-block;"></td>
+            </tr>
+            <tr>
+              <td  style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em;">Mean
+                or average linkage clustering, or<span  class="Apple-converted-space">&nbsp;</span><a
+                   href="https://en.wikipedia.org/wiki/UPGMA"
+                   title="UPGMA"
+                   style="text-decoration: none; color: rgb(11, 0, 128); background: none;">UPGMA</a></td>
+              <td  style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em;"><img
+                   class="mwe-math-fallback-image-inline tex"
+                   alt=" \frac{1}{|A| |B|} \sum_{a \in A }\sum_{ b \in B} d(a,b). "
+                   src="https://upload.wikimedia.org/math/4/a/f/4af137bebc50f3168abaec48f45e6852.png"
+                   style="border: none; vertical-align: middle; display: inline-block;"></td>
+            </tr>
+            <tr>
+              <td  style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em;">Centroid
+                linkage clustering, or UPGMC</td>
+              <td  style="border: 1px solid rgb(170, 170, 170); padding: 0.2em 0.4em;"><img
+                   class="mwe-math-fallback-image-inline tex"
+                   alt=" ||c_s - c_t || "
+                   src="https://upload.wikimedia.org/math/6/c/9/6c971f4622a4d1f05aacdf7b584f5431.png"
+                   style="border: none; vertical-align: middle; display: inline-block;"><span
+                   class="Apple-converted-space">&nbsp;</span>where<span
+                   class="Apple-converted-space">&nbsp;</span><img
+                   class="mwe-math-fallback-image-inline tex"
+                   alt="c_s"
+                   src="https://upload.wikimedia.org/math/d/1/c/d1ced7f9d157b8d7ee795880b78543dd.png"
+                   style="border: none; vertical-align: middle; display: inline-block;"><span
+                   class="Apple-converted-space">&nbsp;</span>and<span
+                   class="Apple-converted-space">&nbsp;</span><img
+                   class="mwe-math-fallback-image-inline tex"
+                   alt="c_t"
+                   src="https://upload.wikimedia.org/math/c/d/4/cd40b468a6890fe609be337d815300a3.png"
+                   style="border: none; vertical-align: middle; display: inline-block;"><span
+                   class="Apple-converted-space">&nbsp;</span>are
+                the centroids of clusters<span  class="Apple-converted-space">&nbsp;</span><i>s</i><span
+                   class="Apple-converted-space">&nbsp;</span>and<span
+                   class="Apple-converted-space">&nbsp;</span><i>t</i>,
+                respectively.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p> </p>
+        <p>Here is an example of single-linkage clustering and complete-linkage
+          clustering respectively:</p>
+        <div  style="text-align: center;"><img  style="width: 548px; height: 235px;"
+             alt=""
+             src="single.png"><br>
+          <img  style="width: 545px; height: 223px;"  alt=""  src="complete.png"><br>
+        </div>
+        <p>To visualize the result of HAC, we use <strong>Dendrogram</strong>.
+          The height of the joint = the distance between two merge clusters. The
+          merge distance monotonically increases as we merge more and more for
+          single, complete and average linkage methods, but not for the centroid
+          method. We can use Dendrogram to identify the number of clusters in
+          data and well-formed clusters. Bellow is Dendrogram of single and
+          complete linkage method.</p>
+        <div  style="text-align: center;"><img  style="width: 560px; height: 432px;"
+             alt=""
+             src="single_complete.png"><br>
+        </div>
+        We complete discussion about HAC, next we move on to Partitional
+        Clustering.<br>
+        <br>
+        Given a data set of $n$ points, we know that there are $k$ clusters in
+        the data. In general, there are $O(k^n)$ ways to partition the data, but
+        how we decide which is better? One intuition says that we want tight
+        clusters. This leads to the following objective function<br>
+        \[\sum_{i = 1}^{k}{\sum_{x \in C_i}{|x - \mu_i|^2}}\]<br>
+        It is the squared distance between data point $x$ and its cluster
+        center.<br>
+        <br>
+        <h3>K-Means</h3>
+        <p>Below is the k-means algorithm. We will analyze the running time of
+          this algorithm. At each iteration, we reassigning clusters: $O(kn)$
+          distance computations and we computing the centroids of each cluster:
+          $O(n)$. We assume these two steps are each done once for $l$
+          iterations: $O(lkn)$. It is a linear in all relevant factors, assuming
+          a fixed number $l$ of iterations and $k$ number of clusters, it is
+          more efficient than $O(n^2)$ of HAC.</p>
+        <img  style="width: 556px; height: 346px;"  alt=""  src="kmeans_algo.png"><br>
+        Furthermore, k-means is <strong>guaranteed to converge</strong> because
+        it takes an alternating optimization approach, each step is guaranteed
+        to decrease the objective function. This is a very interesting
+        characteristics of k-means. However, it is highly sensitive to the
+        initial seeds. So it needs multiple random trials: choose the one with
+        the best sum of squared loss. Besides, K-means is exhaustive, because it
+        clusters every point, no notion of the outlier. So noise and outliers
+        will cause problems because they will become singular clusters and bias
+        the centroid estimation. K-means also has drawbacks that data point is
+        deterministically assigned to one and only one cluster, but in reality,
+        clusters may overlap. So we need another 'soft-clustering' algorithm
+        that data points are assigned to clusters with certain probabilities
+        called "Gaussian Mixture Model"<br>
+        <br>
+        <h3>Gaussian Mixture Model (GMM)</h3>
+        <p>As we discussed in Gaussian Discriminative Analysis. Given a set of
+          $x$'s, estimate ${\alpha_1, \ldots, \alpha_k, \theta_1, \ldots,
+          \theta_k}$. Once the model is identified, we can compute $p(y=i|x)$
+          for $i = 1,\ldots, k$.</p>
+        <img  style="width: 388px; height: 253px;"  alt=""  src="gaussian_mixture_model.png"><br>
+        However, when we use MLE to maximize the term: $\arg \max
+        \limits_{\theta} \prod_j P(x^j)$. We meet the log of sum, and it is
+        difficult to optimize! We can use gradient ascent, but is very
+        inefficient as follow:<br>
+        <img  style="width: 368px; height: 127px;"  alt=""  src="log_sum.png"><br>
+        To deal with this problem, we introduce new optimize method called <strong>Expectation
+          Maximization</strong> (EM). EM is a highly used approach for dealing
+        with hidden (missing) data, here are the cluster labels. The much
+        simpler than gradient methods. It is an iterative algorithm that starts
+        with some initial guess of the model parameters. And it iteratively
+        performs two linked steps:<br>
+        <ol>
+          <li><strong>Expectation</strong> (E-step): given current model
+            parameter $\lambda_t$, compute the expectation for hidden (missing)
+            data.</li>
+          <li><strong>Maximization</strong> (M-step): re-estimate the parameters
+            $\lambda_{t+1}$, assuming that the expected values computed in the
+            E-step are the true values.</li>
+        </ol>
+        <p>Now, we apply EM in GMM in simple case and general Gaussian:</p>
+        <img  style="width: 514px; height: 383px;"  alt=""  src="EM.png"><br>
+        <img  style="width: 509px; height: 413px;"  alt=""  src="EM_gen.png"><br>
+        We have some interesting points about EM to discuss. Like K-means, it is
+        <strong>guaranteed to converge</strong> because $P(x|\theta)$ must
+        increase or remain the same between iterations. It bases on Optimization
+        transfer for MLE with latent data. In practice, it may converge slowly,
+        one can stop early if the change in log-likelihood is smaller than a
+        threshold. However, it may converge to a local optimum as well. So it
+        needs multiple restarts.<br>
+        <br>
+        <h3>Spectral Clustering</h3>
+        Back to K-means, we have discussed that K-means is highly sensitive to
+        initial starts. So how we choose the best initial for k-means. One
+        approach is <strong>Spectral Clustering</strong>. We can represent data
+        points as the vertices $V$ of a graph $G$. Vertices are connected by
+        edges $E$. Edges have weights described by matrix $W$. Large weight
+        $W(i,j)$ means that the points $i$ and $j$ are very similar; otherwise,
+        small weights imply dissimilarity. To calculate the similarity between
+        objects, we use a Gaussian Kernel:<br>
+        \[W(i,j) = exp \frac{-|x_i - x_j|^2}{\sigma^2}\]<br>
+        <br>
+        We define some necessary terms in graph:<br>
+        <ul>
+          <li>Degree of nodes: $d_i = \sum_{j}{w_{i,j}}$</li>
+          <li>Volume of a set: $vol(A) = \sum_{j \in A} d_i, A \subseteq V$</li>
+          <li>Cut(A,B): sum of the weights of the set of edges that connect the
+            two groups: $cut(A,b) = \sum_{i \in A, j \in B}w_{ij}$.</li>
+          <li>Mincut: minimize weight of connections between group: $\min
+            \limits_{A \cap B = \emptyset, A \cup B = V} Cut(A,B)$. However we
+            prefer more balance partitions, so we need normalized Cut</li>
+          <li>Normalized Cut: $Ncut(A,B) = \frac{cut(A,B)}{Vol(A)} +
+            \frac{cut(A,B)}{Vol(B)} = cut(A,B) \frac{Vol(A) +
+            Vol(B)}{Vol(A)Vol(B)}$. We get maximized when Vol(A) and Vol(B) are
+            equal thus it encourages balanced cut.</li>
+          <li>Diagonal Matrix $D(i,i) = d_i$</li>
+        </ul>
+        <p>With necessary terms, we now have the spectral clustering algorithm
+          by Ng, Jordan, and Weiss 2001):</p>
+        <img  style="width: 474px; height: 266px;"  alt=""  src="spectral.png"><br>
+        <br>
+        <h3>Model selection</h3>
+        <p>As we have discussed so far about Clustering, one important point
+          that all algorithms have to deal with is finding the best $k$ clusters
+          to give the best results. It is called Model Selection in Unsupervised
+          Learning. So we will talk about this problem in this section.</p>
+        <p>As you know, each choice of $k$ corresponds to a different
+          statistical model for the data. Model selection searches for a model
+          (a choice of $k$) that gives us the best fit of the training data. We
+          have many approaches: heuristic, penalty, cross-validation and
+          stability based methods.</p>
+        <p>With the heuristic method, we plot the sum of squared error for
+          different $k$ values. SSE will monotonically decrease as we increase
+          $k$. We pay attention to knee points because it suggests possible
+          candidates for $k$.</p>
+        <div  style="text-align: center;"><img  style="width: 493px; height: 217px;"
+             alt=""
+             src="heuristic.png"><br>
+          <div  style="text-align: left;">With penalty method, we usually use
+            Bayesian Information Criterion (BIC) or AIC as measures. <br>
+            <img  style="width: 502px; height: 350px;"  alt=""  src="penalty.png"><br>
+            With Cross-validation method, the likelihood of the training data
+            will always increase as we increase $k$. so we use cross-validation
+            as follow:<br>
+            <ul>
+              <li>For each fold, learn the GMM model using the training data</li>
+              <li>Compute the log-likelihood of the learned model on the
+                remaining fold as test data.</li>
+            </ul>
+            <p>With Stability Based methods, Stability is defined as repeatedly
+              produce similar clustering on data originating from the same
+              source. So high level of agreement among a set of clusterings
+              =&gt; the clustering model $k$ is appropriate for the data. We
+              evaluate multiple models and select the model resulting in the
+              highest level of stability. We have 2 main algorithms in stability
+              method.</p>
+            <img  style="width: 519px; height: 348px;"  alt=""  src="stability.png"><br>
+            <h3>Model Evaluation</h3>
+            <p>Unlike supervised learning, we have class label, and we can
+              directly compute the accuracy of testing data, in unsupervised
+              learning, we don't have these label so we have different
+              measurements called <strong>Internal Criterion</strong> and <strong>External
+                Criterion</strong>. With Internal criterion, a good clustering
+              will produce high quality clusters if it has high intra-cluster
+              similarity and low inter-cluster similarity. But good scores on an
+              internal criterion do not necessarily translate into good
+              effectiveness in an application. An alternative to internal
+              criteria is direct evaluation in the application of interest. So
+              we need an external criterion. Rand Index, Normalized Rand Index
+              are used when we know the ground truth, and Purity and Normalized
+              Mutual Information are used when we do not know the ground truth.</p>
+            <p>Suppose we have the true class labels (ground truth) are known,
+              the validity of clustering can be verified by comparing the class
+              labels and clustering labels.</p>
+            <p><strong>&nbsp;</strong><img  style="width: 362px; height: 153px;"
+                 src="rand.png"></p>
+            <img  style="width: 515px; height: 406px;"  alt=""  src="rand_index.png"><span
+               style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;"><br>
+              To compute<span  class="Apple-converted-space"> </span></span><span
+               style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;"></span><i
+               style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">purity</i><span
+               style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;"><span
+                 class="Apple-converted-space"></span>,
+              each cluster is assigned to the class which is most frequent in
+              the cluster, and then the accuracy of this assignment is measured
+              by counting the number of correctly assigned documents and
+              dividing by<span  class="Apple-converted-space"> </span></span>$N$<span
+               style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;">.
+              Formally:<br>
+              \[purity(\Omega, \mathbb{C}) = \frac{1}{N}\sum_{k}{\omega_k \cap
+              c_j}\]<br>
+            </span><span  style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;"></span><br>
+            <span  style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;"><br>
+            </span>
+            <div  style="text-align: center;"><span  style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;"><img
+                   alt=""
+                   src="http://nlp.stanford.edu/IR-book/html/htmledition/img1393.png"></span><br>
+              <span  style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;"></span></div>
+            <span  style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;">Where
+              $\Omega = {\omega_1, \omega_2, \ldots, \omega_K}$ is the set of
+              clusters and $\mathbb{C} = {c_1, c_2, \ldots, c_J}$ is the set of
+              classes. </span><span  style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;">High
+              purity is easy to achieve when the number of clusters is large -
+              in particular, purity is 1 if each document gets its own cluster.
+              Thus, we cannot use purity to trade off the quality of the
+              clustering against the number of clusters.<br>
+              <br>
+            </span>A measure that allows us to make this tradeoff is <em>normalized
+              mutual information</em> or NMI. The value of NMI is always between
+            0 and 1. <br>
+            \[NMI(\Omega , \mathbb{C}) = \frac{I(\Omega ;
+            \mathbb{C})}{[H(\Omega)+H(\mathbb{C})]/2}\]<br>
+            <span  style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;"><span
+                 class="Apple-converted-space">&nbsp;where:<br>
+                \[H(\Omega) = - \sum_{k}P(\omega_k) log P(\omega_k)) =
+                -\sum_{k}\frac{|\omega_k|}{N} log \frac{|\omega_k|}{N}\]<br>
+              </span></span><span  style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;"><span
+                 class="Apple-converted-space">\[
+                I( \Omega ; \mathbb{C})&nbsp; = \sum_k \sum_j P(\omega_k \cap
+                c_j) \log \frac{P(\omega_k \cap c_j)}{P(\omega_k)P(c_j)} =
+                \sum_k \sum_j \frac{\vert\omega_k \cap c_j\vert}{N} \log
+                \frac{N\vert\omega_k \cap c_j\vert}{\vert\omega_k\vert\vert
+                c_j\vert}\]<br>
+                where $P(\omega_k), P(c_j), P(\omega_k \cap c_j)$ are the
+                probabilities of a document being in cluster $\omega_k$, class
+                $c_j$, and in the intersection of $\omega_k$ and $c_j$,
+                respectively.<br>
+              </span></span>
+            <div  style="text-align: center;"><span  style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;"><span
+                   class="Apple-converted-space"><img
+                     style="width: 327px; height: 129px;"
+                     alt=""
+                     src="NMI.png"><br>
+                </span></span>
+              <div  style="text-align: left;"><span  style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;">For
+                  more information and example about above measurements, you can
+                  look at here: </span><br>
+                <span  style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;"><span
+                     style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;"><a
+                       href="http://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-clustering-1.html">http://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-clustering-1.html</a></span><br>
+                  <br>
+                  We complete the clustering problem also complete the section 3
+                  of our series in "Introduction to Machine Learning". In the
+                  next and the last section, we will discuss the Dimension
+                  reduction and some important theories in Machine Learning and
+                  especially the final suggestion and conclusion on how to use
+                  Machine Learning models.<br>
+                  <span  class="Apple-converted-space"></span></span><br>
+                <span  style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;"><span
+                     class="Apple-converted-space"></span></span></div>
+              <span  style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none;"><span
+                   class="Apple-converted-space"></span></span></div>
+          </div>
+        </div>
+        <p> </p>
+        <span  style="font-weight: bold;"></span>
+        <h3> </h3>
+      </div>
+    </div>
+  </body>
+</html>

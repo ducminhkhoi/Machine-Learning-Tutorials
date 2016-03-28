@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta  content="text/html; charset=windows-1252"  http-equiv="content-type">
+    <title>MathJax TeX Test Page</title>
+    <script  type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script> <script  type="text/javascript"  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> </head>
+  <body> <strong>Notice:</strong> This is the overview of basic and
+    important machine learning models, methods and concepts and theories. I
+    acknowledge all information and knowledge including images, data... I have
+    taken from those 2 courses: <a target="_blank" href="https://www.coursera.org/learn/machine-learning">https://www.coursera.org/learn/machine-learning</a>
+    and <a target="_blank" href="http://classes.engr.oregonstate.edu/eecs/fall2015/cs534/">http://classes.engr.oregonstate.edu/eecs/fall2015/cs534/</a>.
+    You can download the whole article of summarizing Machine Learning at here:
+    <a  target="_blank"  href="http://web.engr.oregonstate.edu/%7Enguyenkh/ml-summary.pdf">http://web.engr.oregonstate.edu/~nguyenkh/ml-summary.pdf</a><br>
+    <br>
+    Our series comprise of following topics:<br>
+    <ul>
+      <li><a  target="_blank"  href="http://www.nguyenducminhkhoi.com/2015/11/introduction-to-machine-learning.html">Section
+          1</a>: Introduction, Linear regression, Generative and Discriminative
+        Model, Perceptron, Logistic Regression, Naive Bayes and Gaussian
+        Discriminant Analysis</li>
+      <li><a  target="_blank"  href="http://www.nguyenducminhkhoi.com/2015/12/introduction-to-machine-learning.html">Section
+          2</a>: Four important Discriminative Models: K-Nearest Neighbors,
+        Support Vector Machine, Decision Tree and Neural Network</li>
+      <li><a  target="_blank"  href="http://www.nguyenducminhkhoi.com/2015/12/introduction-to-machine-learning_8.html">Section
+          3</a>: Ensemble Methods (Bagging, Random Forest, Boosting) and
+        Clustering (HAC, KMeans, GMM, Spectral Clustering)</li>
+      <li><a  target="_blank"  href="http://www.nguyenducminhkhoi.com/2015/12/introduction-to-machine-learningsection4.html">Section
+          4</a>: Dimension Reduction, Major problems in Machine Learning, ML
+        libraries and Summaries <strong>(this post)</strong></li>
+    </ul>
+    In the last section in "Introduction to Machine Learning" series. We
+    discussed about a supervised learning model: Ensemble Methods (Bagging,
+    Random Forest and Boosting). And a short introduction to clustering problem
+    and algorithm to handle that including K-means, GMM, HAC and Spectral
+    clustering. Today, we will discuss an important problem in Machine Learning,
+    that is Dimension Reduction. And then we will talk about some important
+    theories in Machine Learning. And finally, we conclude our series with some
+    suggestions and summary. Now let's get started!<br>
+    <br>
+    <h2>Dimension Reduction</h2>
+    <p>Why we need dimension reduction? In high dimensional data or a large
+      number of features, for example, documents represented by thousands of
+      words, or million of bigrams or Images represented by thousands of pixels.
+      There are a lot of redundant and irrelevant features like not all words
+      are relevant for classifying/cluster documents). Also, it is difficult to
+      interpret and visualize the high dimensional data. And one problem is that
+      when we compute the distances to nearest and furthest neighbors will be
+      similar.</p>
+    <p>With <strong>Linear Features</strong>, we can linearly project $n$
+      dimension data onto a $k$ dimension data. If supervised learning, we would
+      like to maximize the separation among classes, we use <strong>Linear
+        Discriminant Analysis</strong> or <strong>LDA</strong>. If unsupervised
+      learning, we would like to retain as much data variance as possible, we
+      use <strong>Principle Component Analysis</strong> or <strong>PCA</strong>.</p>
+    <h3>Linear Discriminant Analysis (LDA)</h3>
+    <p>LDA is also named Fisher Discriminant Analysis. It can be viewed as a
+      dimension reduction method with a generative classifier $p(x|y)$: Gaussian
+      with distant $\mu$ for each class but shared $\Sigma$. So we would find a
+      projection direction so that the separation between classes is maximized.
+      In other words, we are looking for a projection that best discriminates
+      different classes.</p>
+    <div  style="text-align: center;"><img  style="width: 566px; height: 201px;"
+         src="lda.png"><br>
+    </div>
+    One way to measure separation is to look at the class means $\mu_1$ and
+    $\mu_2$. we want the distance between the projected means to be as large as
+    possible. We also want the data points from the same class to be close as
+    possible. This can be measured by the within-class scatter (variance within
+    the class). Combining the two sides, we have the following objective:<br>
+    <img  style="width: 545px; height: 362px;"  src="LDA_objective.png"><br>
+    That is LDA for 2 classes. How about LDA for Multi-Classes. We can use:<br>
+    <img  style="width: 357px; height: 262px;"  src="lda_multi.png"><br>
+    We have some comments about LDA. The result of LDA is optimal if and only if
+    the classes are Gaussian and have equal covariance. It is better than PCA
+    (discuss later), but not necessarily good enough.<br>
+    <br>
+    <h3>Principle Component Analysis (PCA)</h3>
+    <p>When the label of data is unknown, we have another solution for dimension
+      reduction called PCA. The goal of PCA is to account for the variation in
+      the data in as few dimension as possible. We have the following figure
+      describing the Geometric picture of Principle components (PCs)</p>
+    <div  style="text-align: center;"><img  style="width: 498px; height: 232px;"
+         src="pca.png"><br>
+    </div>
+    The first and second PC is the projection direction that maximize the
+    variance of the projected data (note: $z_1 \bot z_2$). <br>
+    <img  style="width: 337px; height: 219px;"  src="pca_1.png"> <br>
+    Altogether, we have the following steps to find PCA:<br>
+    <ul>
+      <li>Calculate the covariance matrix of the data $S$</li>
+      <li>Calculate the eigen-vectors/eigen-values of $S$</li>
+      <li>Rank the eigen-values in decreasing order</li>
+      <li>Select a fixed number of eigen-vectors, or just enough to retain a
+        fixed percentage of the variance, for example $75\%$, the smallest $d$
+        such that $\frac{\sum_{i = 1}^{d}\lambda_i}{\sum_i \lambda_i} \geq 75\%$</li>
+      <li>Note: You might loose some info. But the eigen-values are small, the
+        lost is not much.</li>
+    </ul>
+    <img  style="width: 311px; height: 139px;"  src="pca_percent.png"><br>
+    So we have some conclusions about PCA:<br>
+    <ul>
+      <li>PCA helps to reduce the computational complexity</li>
+      <li>It also helps in supervised learning too because it reduces dimension
+        (simpler hypothesis space) and smaller VC dimension (less over-fitting).
+      </li>
+      <li>PCA can also be seen as noise reduction because some noise is
+        diminished when projected onto PC</li>
+      <li>Can use PCA to visualize high dimension data for getting the first
+        notion of data, usually $d = 2 or d = 3$</li>
+      <li>However, you may lose important information when the small variance
+        directions contain useful information, for example, classification
+        follow:</li>
+    </ul>
+    <div  style="text-align: center;"><img  style="width: 340px; height: 57px;"
+         src="eg.png"><br>
+      <div  style="text-align: left;">PCA and LDA algorithm above is just worked
+        in Linear Dimension. We next talk about nonlinear dimension reduction.<br>
+        <br>
+        <h3>Nonlinear Dimension Reduction</h3>
+        Data often lies on or near a nonlinear low-dimensional curve. We call
+        such low dimension structure manifolds. <br>
+        <div  style="text-align: center;"><img  style="width: 358px; height: 164px;"
+             src="nonlinear.png"><br>
+          <div  style="text-align: left;">We have ISOMAP (Isometric Feature
+            Mapping). It preserves the global, nonlinear geometry of the data by
+            preserving the <strong>geodesic distances</strong>. There are two
+            steps:<br>
+            <ol>
+              <li>Approximate the geodesic distance between every pair of points
+                in the data</li>
+              <ul>
+                <li>The manifold is locally linear</li>
+                <li>Euclidean distance works well for points that are close
+                  enough (connecting $i$ and $j$ if $d(i,j) &lt; \epsilon$ or
+                  $i$ is one of $j$'s kNN). $d(i,j)$ is Euclidean distance</li>
+                <li>For the points that are far apart, their geodesic distance
+                  can be approximated by summing up local Euclidean distance.
+                  (can be computed as shortest path distance between 2 points)</li>
+              </ul>
+              <li>Find a Euclidean mapping of the data that preserves the
+                geodesic distance.</li>
+            </ol>
+            <p>We have the some notices about ISOMAP. It preserves global
+              nonlinear structure by approximating geodesic distance. It is
+              sensitive to the parameters used in the graph construction ($k$ in
+              k-isomap and $\epsilon$ in $\epsilon$-isomap). If data is overly
+              sparse, the shortest path approximation to the geodesic distance
+              can be poor because we may not have enough data to construct the
+              manifold.</p>
+            <p>Up to this point, we complete whole basic idea about dimension
+              reduction. In the next section, we will discuss some important
+              theories in Machine Learning.</p>
+            <h2>Learning Theory</h2>
+            <p>This part, I think is the most boring part of our Machine
+              Learning series, but it is quite important to build stronger
+              intuition and develop the rule of thumb about how to best apply
+              learning algorithms in different settings, so we have to mention
+              in here. So let's get started!</p>
+            <h3>Bias and Variance</h3>
+            <p>First, we will look the analysis of <strong>Bias and Variance</strong>.
+              We can write the expected loss $E(L)$ as follow:&nbsp;</p>
+            <img  style="width: 414px; height: 204px;"  src="bias.png"><br>
+            Where:<br>
+            <ul>
+              <li>Bias: how well <span  style="text-decoration: underline;">on
+                  average </span>can our learning algorithm capture the target
+                function</li>
+              <li>Variance: how significantly does our learning algorithm <span
+                   style="text-decoration: underline;">fluctuate</span>
+                depending on the training set</li>
+              <li>Noise: inherent to the data generation process itself, not
+                controlled by the choice of learning algorithm</li>
+            </ul>
+            <p>Next we talk about the Bias-Variance Trade-off. Taking an example
+              from an over-regularized model (large $\lambda$ or simple model)
+              will have the high bias but low variance while an
+              under-regularized model (small $\lambda$ or complex models) will
+              have a high variance but low bias.</p>
+            <img  style="width: 289px; height: 221px;"  src="trade-off.png"><br>
+            Then, we talk about <strong>computational learning theory. </strong>It
+            provides a theoretical analysis of learning and can show us when to
+            expect a learning algorithm to succeed and shows when learning may
+            be impossible. There are typically 3 areas: <br>
+            <ul>
+              <li><strong>Sample Complexity</strong>: How many examples we need
+                to find a good hypothesis?</li>
+              <li><strong>Computational Complexity</strong>: How much
+                computational power we need to find a good hypothesis?</li>
+              <li><strong>Mistake Bound</strong>: How many mistakes we will make
+                before finding a good hypothesis?</li>
+            </ul>
+            <p>We have the following framework for Noise Free Learning:</p>
+            <img  style="width: 498px; height: 324px;"  src="framework.png"><br>
+            We define the generalization Error of a hypothesis $h$ is the
+            probability that $h$ will make a mistake on a new example randomly
+            drawn from $D$<br>
+            \[error(h,f) = P(h(x) \neq f(x))\]<br>
+            <img  style="width: 533px; height: 394px;"  src="expect.png"><br>
+            Base on types of $H$, we have different cases:<br>
+            <br>
+            <h3>Case 1: Finite Hypothesis Space</h3>
+            We have <strong>Blummer Bound</strong> for consistent hypothesis
+            and <strong>Hoeffding Bound</strong> for no consistent hypothesis<br>
+            <img  style="width: 521px; height: 348px;"  src="finite_1.png"><br>
+            <h3>Case 2: Infinite Hypothesis Space</h3>
+            <p>For finite spaces, the complexity of a hypothesis space was
+              characterized roughly by $|H|$. For infinite spaces, we will
+              introduce a concept called <strong>VC-dimension</strong></p>
+            <p>We have the following definition:</p>
+            <img  style="width: 489px; height: 380px;"  src="shatter.png"><br>
+            <img  style="width: 534px; height: 373px;"  src="VC.png"><br>
+            In general, the VC-dimension for <strong>linear separators</strong>
+            in $n$-dimensional space is $n+1$. A good heuristic is that
+            VC-dimension is equal to the number of tunable parameters in the
+            model (unless the parameters are redundant). For finite space $H$,
+            we have $VC(H) \leq log_2|H|$. VC dimension measures the complexity
+            of $|H|$<br>
+            <br>
+            So we have bounds for <strong>Consistent Hypotheses</strong>:<br>
+            <img  style="width: 507px; height: 304px;"  src="bound_1.png"><br>
+            And Bounds for <strong>Inconsistent Hypotheses</strong>:<br>
+            <img  style="width: 488px; height: 282px;"  src="bound_2.png"><br>
+            <br>
+            <h2>Related Topics:</h2>
+            <h3>Major Problems in Machine Learning</h3>
+            <p>Besides 3 basic and important task in Machine Learning comprises
+              of Regression, Classification and Clustering as discussed above,
+              we also have many interesting problems as follow:</p>
+            <ul>
+              <li><strong>Anomaly Detection</strong>: in the discussion above,
+                we talk about outliers and noise are greatly affect the
+                performance of many learning algorithms. Therefore, if we can
+                detect and discards these data in our process, it will boost our
+                learning algorithm so much. The process of detect these data
+                called Anomaly Detection. You can read for an overview at this
+                Wikipedia page: <a  href="https://en.wikipedia.org/wiki/Anomaly_detection">https://en.wikipedia.org/wiki/Anomaly_detection
+                  </a>You can read more detail in the survey: <a  href="http://cucis.ece.northwestern.edu/projects/DMS/publications/AnomalyDetection.pdf">http://cucis.ece.northwestern.edu/projects/DMS/publications/AnomalyDetection.pdf</a></li>
+              <li><strong>Reinforcement learning</strong>: according to Andrew
+                Ng and his lecture notes in course cs229 (<a  href="http://cs229.stanford.edu/">http://cs229.stanford.edu/</a>).&nbsp;
+                He introduces reinforcement learning as follow: " In supervised
+                learning, we saw algorithms that tried to make their outputs
+                mimic the labels y given in the training set. In that setting,
+                the labels gave an unambiguous "right answer" for each of the
+                inputs x. In contrast, for many sequential decision making and
+                control problems, it is very difficult to provide this type of
+                explicit supervision to a learning algorithm... In the
+                reinforcement learning framework, we will instead provide our
+                algorithms only a reward function, which indicates to the
+                learning agent when it is doing well, and when it is doing
+                poorly... It will then be the learning algorithm's job to figure
+                out how to choose actions over time so as to obtain large
+                rewards." You can read more about problems and methods in
+                reinforcement learning at his lecture notes:&nbsp;<a  href="http://cs229.stanford.edu/notes/cs229-notes12.pdf">http://cs229.stanford.edu/notes/cs229-notes12.pdf</a></li>
+              <li><strong>Structured Learning</strong>: In the introduction to
+                Generative and Discriminative Model, I had discussed
+                Probabilistic Graphical Model, with the two example models that
+                we discussed, i.e. Logistic Regression and Naive Bayes. In those
+                two models, you can express the relation between many features
+                (variables) and output results. The left figure describes Naive
+                Bayes graphical models. Each features $x$ is independent with
+                each other given the class label $y$. And the right figure
+                describes the Logistic Regression graphical models.&nbsp; The
+                arrows go from the $x$ nodes to the $y$ node. Note this is
+                exactly the opposite of Naive Bayes models. This is two most
+                simplest cases of structured learning. Graphical Models also
+                have more powerful model general data called <strong>Bayesian
+                  Networks</strong> <strong>(BN)</strong> and <strong>Markov
+                  Random Fields</strong> (<strong>MN</strong>) and for sequence
+                data such as <strong>Hidden Markov Model (HMM)</strong> and <strong>Conditional
+                  Random Field (CRF)</strong>. <img  style="width: 431px; height: 135px;"
+                   src="LR_NB.png"></li>
+              <li><strong>Feature Learning</strong>: according to Wikipedia (<a
+                   href="https://en.wikipedia.org/wiki/Feature_learning">https://en.wikipedia.org/wiki/Feature_learning</a>)
+                "Feature Learning is a set of techniques that learn a feature: a
+                transformation of raw data input to a representation that can be
+                effectively exploited in machine learning tasks... Traditional
+                hand-crafted features often require expensive human labor and
+                often rely on expert knowledge. Also, they normally do not
+                generalize well. This motivates the design of efficient feature
+                learning techniques, to automate and generalize this." Feature
+                learning comprises of <strong>Feature Selection</strong>
+                (choose a subset of the original set of features, read more at:
+                read more at here: <a  href="http://www.jmlr.org/papers/volume3/guyon03a/guyon03a.pdf">http://www.jmlr.org/papers/volume3/guyon03a/guyon03a.pdf</a>)
+                and <strong>Feature Extraction </strong>(build a new set of
+                features from the original feature set , read more at: <a  href="http://www.pca.narod.ru/DimensionReductionBrifReview.pdf">http://www.pca.narod.ru/DimensionReductionBrifReview.pdf</a>).</li>
+              <li><strong>Online Learning</strong>: All kinds of machine
+                learning algorithm we have discussed so far based on the
+                assumption that the training set are available at the time we
+                train. However, in some cases, we do not have all training data
+                at the same time like the value of stock, or weather data... In
+                these cases, we use another type of approach called online
+                learning. In online learning, the mapping is updated after the
+                arrival of every new data point in a scale fashion. We also
+                discussed one type of Gradient Descent called Stochastic
+                Gradient Descent is aimed with boosting the time processing for
+                Gradient Descent, but also used for this scenario. You can read
+                more at this Wikipedia page <a  href="https://en.wikipedia.org/wiki/Online_machine_learning">https://en.wikipedia.org/wiki/Online_machine_learning</a></li>
+              <li><strong>Semi-supervised Learning</strong>: according to this
+                Wikipedia page: (<a  href="https://en.wikipedia.org/wiki/Semi-supervised_learning">https://en.wikipedia.org/wiki/Semi-supervised_learning</a>)
+                "Semi-supervised learning falls between unsupervised learning
+                (without any labeled training data) and supervised learning
+                (with completely labeled training data). Many machine-learning
+                researchers have found that unlabeled data, when used in
+                conjunction with a small amount of labeled data, can produce
+                considerable improvement in learning accuracy. The acquisition
+                of labeled data for a learning problem often requires a skilled
+                human agent (e.g. to transcribe an audio segment) or a physical
+                experiment (e.g. determining the 3D structure of a protein or
+                determining whether there is oil at a particular location). The
+                cost associated with the labeling process thus may render a
+                fully labeled training set infeasible, whereas acquisition of
+                unlabeled data is relatively inexpensive. In such situations,
+                semi-supervised learning can be of great practical value.
+                Semi-supervised learning is also of theoretical interest in
+                machine learning and as a model for human learning."</li>
+              <li>Other problems: Association Rules (<a  href="https://en.wikipedia.org/wiki/Association_rule_learning">https://en.wikipedia.org/wiki/Association_rule_learning</a>),
+                Learn to rank (<a  href="https://en.wikipedia.org/wiki/Learning_to_rank">https://en.wikipedia.org/wiki/Learning_to_rank</a>),
+                Grammar Induction (<a  href="https://en.wikipedia.org/wiki/Grammar_induction">https://en.wikipedia.org/wiki/Grammar_induction</a>)</li>
+            </ul>
+            <h3>Relations between Machine Learning and other fields</h3>
+            <p>As any other subfields of computer science, machine learning is
+              always related to other fields. In this part, I will list some
+              relations between machine learning and:</p>
+            <ul>
+              <li><span  style="font-weight: bold;">Artificial Intelligence</span>:
+                Machine Learning can be considered a subfield of Artificial
+                Intelligence which explores the study and construction of
+                algorithms that can learn from and make predictions on data.
+                Such algorithms operate by building a model from example inputs
+                in order to make data-driven predictions or decisions, rather
+                than following strictly static program instructions. (according
+                to Wikipedia: <a  href="https://en.wikipedia.org/wiki/Machine_learning">https://en.wikipedia.org/wiki/Machine_learning</a>).
+                Nowadays, Machine Learning is the most active research field in
+                Artificial Intelligence.</li>
+              <li><strong>Data mining, Statistics, Pattern Recognition</strong>:
+                can be expressed in the following diagram. You can read more in
+                this post: <a  href="http://machinelearningmastery.com/where-does-machine-learning-fit-in/">http://machinelearningmastery.com/where-does-machine-learning-fit-in/</a>:
+                <img  style="width: 431px; height: 264px;"  alt=""  src="http://blogs.sas.com/content/subconsciousmusings/files/2014/08/data-mining-Venn-diagram.png"></li>
+              <li><strong>Probabilistic Graphical Model</strong> (PGM): as you
+                can see in the previous discussion, machine learning uses a lot
+                of models inspired from PGM like Logistic Regression, Naive
+                Bayes, Hidden Markov Model and Conditional Random Field.</li>
+              <li><strong>Deep Learning</strong>: Deep Learning is a new area of
+                Machine Learning research, which has been introduced with the
+                objective of moving Machine Learning closer to one of its
+                original goals: Artificial Intelligence. (according to <a  href="http://deeplearning.net/">http://deeplearning.net/</a>)
+              </li>
+              <li><strong>Computer Vision and Natural Language Processing</strong>:
+                they are both very active research fields which apply machine
+                learning methods. Computer Vision processes vision data like
+                images or videos while Natural Language Processing processes
+                language data like speech, text... Machine Learning methods can
+                be applied in 2 steps: pre-processing data and classification
+                step. For example, Computer Vision uses GMM model to extract
+                foreground from background or NLP use HMM model to POS task.</li>
+            </ul>
+            <h3>Machine Learning Libraries</h3>
+            <p>After discussing a lot of "theoretical" concept and definition
+              used in machine learning, in this part, I will introduce some
+              machine learning libraries in 3 major machine learning languages:
+              R, Python and Matlab. You can use this section as a reference when
+              you are looking for a library.</p>
+            <table  style="width: 100%"  border="1">
+              <tbody>
+                <tr>
+                  <td  style="text-align: center; width: 161.433px;"><strong>Machine
+                      Learning Algorithm</strong></td>
+                  <td  style="text-align: center; width: 105.267px;"><strong>R</strong></td>
+                  <td  style="text-align: center;"><strong>Python</strong></td>
+                  <td  style="text-align: center;"><strong>Matlab</strong></td>
+                </tr>
+                <tr>
+                  <td>Linear Regression</td>
+                  <td><a  href="http://www.statmethods.net/stats/regression.html">lm()</a><br>
+                  </td>
+                  <td><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html">linear_model.LinearRegression</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/help/stats/fitlm.html">fitlm()</a>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>Perceptron</td>
+                  <td>--<br>
+                  </td>
+                  <td><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Perceptron.html">linear_model.Perceptron</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/help/nnet/ref/perceptron.html">perceptron()</a><br>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Logistic Regression</td>
+                  <td><a  href="http://www.statmethods.net/advstats/glm.html">glm()</a><br>
+                  </td>
+                  <td><a  style=""  href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">linear_model.LogisticRegression</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/help/stats/fitglm.htm">fitglm()</a></td>
+                </tr>
+                <tr>
+                  <td>Naive Bayes</td>
+                  <td><a  href="http://www.inside-r.org/packages/cran/e1071/docs/naivebayes">naiveBayes()</a><br>
+                  </td>
+                  <td  style="width: 231.55px;"><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html">naive_bayes.GaussianNB</a>
+                    or <br>
+                    <a  href="http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html">naive_bayes.MultinomialNB</a>
+                    or <br>
+                    <a  href="http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.BernoulliNB.html">naive_bayes.BernoulliNB</a><span
+                       style="text-decoration: underline;"></span><br>
+                  </td>
+                  <td  style="width: 177.717px;"><a  href="http://www.mathworks.com/help/stats/fitcnb.html">fitcnb()<br>
+                    </a></td>
+                </tr>
+                <tr>
+                  <td>Gaussian Discriminant Analysis</td>
+                  <td><a  href="http://www.statmethods.net/advstats/discriminant.html">lda()</a><br>
+                  </td>
+                  <td><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html">LinearDiscriminantAnalysis</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/help/stats/fitcdiscr.html">fitcdiscr()</a></td>
+                </tr>
+                <tr>
+                  <td>Support Vector Machine</td>
+                  <td><a  href="http://www.inside-r.org/node/57517">svm()</a><br>
+                  </td>
+                  <td><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">svm.SVC</a>
+                    or <a  href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html">svm.SVR</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/help/stats/fitcsvm.html">fitcsvm()</a></td>
+                </tr>
+                <tr>
+                  <td>Decision Tree</td>
+                  <td><a  href="http://www.statmethods.net/advstats/cart.html">rpart()</a>
+                    or <a  href="http://www.statmethods.net/advstats/cart.html">ctree()</a><br>
+                  </td>
+                  <td><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html">tree.DecisionTreeClassifier</a>
+                    or <br>
+                    <a  href="http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html">tree.DecisionTreeRegressor</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/help/stats/fitctree.html">fitctree()</a></td>
+                </tr>
+                <tr>
+                  <td>Neural Network</td>
+                  <td><a  href="https://cran.r-project.org/web/packages/neuralnet/index.html">neuralnet()</a><br>
+                  </td>
+                  <td><a  href="http://scikit-learn.org/dev/modules/generated/sklearn.neural_network.MLPClassifier.html">neural_network.MLPClassifier</a>
+                    or <br>
+                    <a  href="http://scikit-learn.org/dev/modules/generated/sklearn.neural_network.MLPRegressor.html">neural_network.MLPRegressor</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/help/nnet/ref/fitnet.html">fitnet()</a></td>
+                </tr>
+                <tr>
+                  <td>k-Nearest Neighbor</td>
+                  <td><a  href="https://stat.ethz.ch/R-manual/R-devel/library/class/html/knn.html">knn()</a><br>
+                  </td>
+                  <td><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html">neighbors.KNeighborsClassifier</a>
+                    or<br>
+                    <a  href="http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html">KNeighborsRegressor</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/help/stats/classificationknn-class.html">fitcknn()</a></td>
+                </tr>
+                <tr>
+                  <td>Ensemble Bagging</td>
+                  <td><a  href="https://cran.r-project.org/web/packages/ipred/">ipred()</a><br>
+                  </td>
+                  <td><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.BaggingClassifier.html">ensemble.BaggingClassifier</a>
+                    <br>
+                    or <a  href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.BaggingRegressor.html">ensemble.BaggingRegressor</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/help/stats/fitensemble.html">fitensemble()</a>
+                    or <a  href="http://www.mathworks.com/help/stats/treebagger.html">TreeBagger()</a></td>
+                </tr>
+                <tr>
+                  <td>Random Forest</td>
+                  <td><a  href="https://cran.r-project.org/web/packages/randomForest/">randomForest</a><br>
+                  </td>
+                  <td><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">ensemble.RandomForestClassifier</a>
+                    or <a  href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html">ensemble.RandomForestRegressor</a><br>
+                  </td>
+                  <td>--<br>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Ensemble Boosting</td>
+                  <td><a  href="https://cran.r-project.org/web/packages/adabag/">adabag()</a><br>
+                  </td>
+                  <td><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostClassifier.html">ensemble.AdaBoostClassifier</a>
+                    or <a  href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostRegressor.html">ensemble.AdaBoostRegressor</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/help/stats/fitensemble.html">fitensemble()</a></td>
+                </tr>
+                <tr>
+                  <td>HAC<br>
+                  </td>
+                  <td><a  href="http://www.inside-r.org/r-doc/stats/hclust">hclust()</a><br>
+                  </td>
+                  <td><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html">cluster.AgglomerativeClustering</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/help/stats/clusterdata.html">clusterdata()</a><br>
+                  </td>
+                </tr>
+                <tr>
+                  <td>K-means<br>
+                  </td>
+                  <td><a  href="http://www.inside-r.org/r-doc/stats/kmeans">kmeans()</a><br>
+                  </td>
+                  <td><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html">cluster.KMeans</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/help/stats/kmeans.html">kmeans()</a><br>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Gaussian Mixture Model </td>
+                  <td><a  href="https://cran.r-project.org/web/packages/bgmm/">bgmm()</a><br>
+                  </td>
+                  <td><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.mixture.GMM.html">mixture.GMM</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/help/stats/fitgmdist.html">fitgmdist()</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Spectral Clustering<br>
+                  </td>
+                  <td><a  href="https://cran.r-project.org/web/packages/kernlab/">kernelab()</a><br>
+                  </td>
+                  <td><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.cluster.SpectralClustering.html">cluster.SpectralClustering</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/matlabcentral/fileexchange/34412-fast-and-efficient-spectral-clustering">spectral
+                      clustering</a><br>
+                  </td>
+                </tr>
+                <tr>
+                  <td>PCA<br>
+                  </td>
+                  <td><a  href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/princomp.html">princomp()</a><br>
+                  </td>
+                  <td><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">decomposition.PCA</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/help/stats/pca.html">pca()</a><br>
+                  </td>
+                </tr>
+                <tr>
+                  <td>LDA<br>
+                  </td>
+                  <td><a  href="http://www.statmethods.net/advstats/discriminant.html">lda()</a>
+                  </td>
+                  <td><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis.transform">LinearDiscriminantAnalysis.transform</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/help/stats/fitcdiscr.html">fitcdiscr()</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>ISOMAP</td>
+                  <td><a  href="http://www.inside-r.org/packages/cran/vegan/docs/isomap">isomap()</a></td>
+                  <td><a  href="http://scikit-learn.org/stable/modules/generated/sklearn.manifold.Isomap.html">manifold.Isomap</a><br>
+                  </td>
+                  <td><a  href="http://isomap.stanford.edu/">Isomap()</a></td>
+                </tr>
+                <tr>
+                  <td>HMM</td>
+                  <td><a  href="https://cran.r-project.org/web/packages/HMM/">HMM()</a></td>
+                  <td><a  href="https://github.com/hmmlearn/hmmlearn">hmmlearn</a><br>
+                  </td>
+                  <td><a  href="http://www.mathworks.com/help/stats/hidden-markov-models-hmm.html">hmmtrain()</a></td>
+                </tr>
+                <tr>
+                  <td>CRF</td>
+                  <td><a  href="https://cran.r-project.org/web/packages/CRF/index.html">CRF()</a></td>
+                  <td>--<br>
+                  </td>
+                  <td><a  href="http://www.cs.ubc.ca/%7Emurphyk/Software/CRF/crf.html">crfChain()</a></td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+            <h2>Summary</h2>
+            <p>I have presented to you some Machine Learning algorithms and
+              models. Of course, it is not enough, but it is the most basic and
+              fundamental machine learning algorithms, any other algorithms
+              derived from these algorithms so you should not worry about other
+              topics in machine learning. Just make sure you understand the
+              underlined idea behinds these algorithms, you can understand other
+              algorithms easily.</p>
+            <p>You can find more&nbsp; machine learning algorithms at here: </p>
+            <ul>
+              <li><a  href="http://machinelearningmastery.com/a-tour-of-machine-learning-algorithms/">http://machinelearningmastery.com/a-tour-of-machine-learning-algorithms/</a></li>
+              <li><span  style="color: rgb(0, 0, 238);"><span  style="text-decoration: underline;">https://en.wikipedia.org/wiki/List_of_machine_learning_concepts</span></span></li>
+            </ul>
+            <ul>
+            </ul>
+            <ul>
+            </ul>
+            Each algorithm presented here has its own pros and cons, no
+            algorithm is perfect, so you should know the characteristics of each
+            algorithm to apply appropriately with different situations is the
+            most important thing! <br>
+            <br>
+            To understand more thoroughly about Machine Learning algorithms, you
+            can read these documentations:<br>
+            <ul>
+              <li> <strong>sklearn</strong> - a popular machine learning
+                library of python programming language: <a  href="http://scikit-learn.org/dev/user_guide.html#">User
+                  guides</a> all <a  href="http://scikit-learn.org/dev/modules/classes.html">API</a></li>
+              <li> <strong>Matlab </strong>- a popular scientific and
+                engineering programming language: <a  href="http://www.mathworks.com/solutions/machine-learning/">Overview</a></li>
+              <li><span  style="color: rgb(0, 0, 238);"><span  style="text-decoration: underline;"></span></span>Wikipedia
+                page about Machine Learning: <a  href="https://en.wikipedia.org/wiki/Machine_learning">https://en.wikipedia.org/wiki/Machine_learning</a><strong><br>
+                </strong></li>
+            </ul>
+            To sum up, there are 3 main tasks in machine learning: regression,
+            classification and clustering. Depending on different requirements,
+            you can choose the appropriate machine learning algorithms to belong
+            to these 3 tasks. <br>
+            <ul>
+              <li>With Regression task, you have some solutions: Linear
+                Regression, K-Nearest Neighbor Regression, Neural Network
+                Regression, Support Vector Regression, Decision Tree Regression,
+                Ensemble regression (Bagging, Random Forest, Boosting)...</li>
+              <li>With Classification task, you have some following solutions:
+                Perceptron (it is the simplest), Logistic Regression, Naive
+                Bayes, Discriminant Analysis, Support Vector Machine, Decision
+                Tree, Neural Network, K-Nearest Neighbors, Ensemble method
+                (Bagging, Random Forest, Boosting)...</li>
+              <li>With Clustering task, you have some following solutions: HAC,
+                K-means, GMM, Spectral Clustering, Neural Network clustering...</li>
+              <li>With Dimension Reduction: LDA, PCA, Isomaps,...</li>
+              <li>Online Learning: K-Nearest Neighbors, Perceptron...</li>
+            </ul>
+            <p>After deciding which group of algorithm to use, you may decide
+              which is the most suitable algorithm for your project, that
+              depends on first:</p>
+            <ul>
+              <li>Characteristics of the data: if your data is followed any
+                distribution of probabilistic graphical model assume, you should
+                use them. For example, Gaussian Mixture Model assume your data
+                is generated by many Gaussian distributions, you should apply
+                this model over other such as Logistic Regression. Else, you do
+                not know any information about the data, you can use
+                Discriminative models over any Generative models.</li>
+              <li>Number of example data: if you have a lot of relevant training
+                examples, you should you Neural Network over other methods
+                because Neural Network is designed for this situation. Or if you
+                just have adequate data, you can use other methods over Neural
+                Network. In case, you have few number of example, you should use
+                decision tree instead or simpler model like Perceptron or
+                Nearest Neighbors.</li>
+              <li>Dimension of data: if your data has too many features, you
+                first job may be reducing the data into smaller dimension space
+                by some dimension reduction algorithms like PCA (unknown label)
+                or LDA (known label)</li>
+              <li>Other advice: you can read more at here: <a  href="http://cs229.stanford.edu/materials/ML-advice.pdf">http://cs229.stanford.edu/materials/ML-advice.pdf</a>
+                and here: <a  href="http://www.holehouse.org/mlclass/10_Advice_for_applying_machine_learning.html">http://www.holehouse.org/mlclass/10_Advice_for_applying_machine_learning.html</a></li>
+            </ul>
+            Nowadays, what you can do in machine learning. Research in machine
+            learning can be divided into 3 categories:<br>
+            <ul>
+              <li>Application research: Apply one or combination of machine
+                learning algorithms to an application in computer vision,
+                natural language processing, speech recognition,
+                bioinformatics...</li>
+              <li>Algorithmic research: If you are genius and talented, you can
+                completely invent new schools of machine learning algorithm like
+                one of discussed algorithms. Or you can enhance any existing
+                algorithm to work more robust or have better performance in
+                specific domains like in text classification or object
+                recognition in image processing... One of the school of machine
+                learning algorithm you can make great contribution is Graphical
+                Model or currently Deep Learning.</li>
+              <li>Theoretical research: this research may focus on proving some
+                interesting (non-trivial) properties of a new or existing
+                learning algorithm. This fields is used for one who are good or
+                very good at math and reasoning skills. </li>
+            </ul>
+            <p>To read more about some current hot topics in Machine Learning,
+              you can read this discussion in Quora: <a  href="https://www.quora.com/What-are-currently-the-hot-topics-in-Machine-Learning-research-and-in-real-applications">https://www.quora.com/What-are-currently-the-hot-topics-in-Machine-Learning-research-and-in-real-applications</a></p>
+            <ol>
+            </ol>
+            I have summarized all important concepts and terms of this series in
+            a figure below. Click to see larger figure.<br>
+            To this point, I have completed discussion about some basic Machine
+            Learning models, concepts and terms. I hope that throughout this
+            series, you can obtain much of interesting knowledge. Again, I
+            acknowledge all information including figures, information and so on
+            on those courses: <a  href="https://www.coursera.org/learn/machine-learning">https://www.coursera.org/learn/machine-learning</a>
+            and <a  href="http://classes.engr.oregonstate.edu/eecs/fall2015/cs534/">http://classes.engr.oregonstate.edu/eecs/fall2015/cs534/</a>
+            If you have any comments, advice or questions, feel free to leave it
+            in the comment section below. Thanks for you reading!!!</div>
+        </div>
+      </div>
+    </div>
+    <h2> </h2>
+  </body>
+</html>

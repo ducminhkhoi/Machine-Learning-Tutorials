@@ -1,0 +1,522 @@
+<html>
+  <head>
+
+    <meta  content="text/html; charset=windows-1252"  http-equiv="content-type">
+    <title>MathJax TeX Test Page</title>
+    <script  type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script> <script  type="text/javascript"  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> </head>
+  <body><strong>Notice:</strong> This is the overview of basic and important
+    machine learning models, methods and concepts and theories. I acknowledge
+    all information and knowledge including images, data... I have taken from
+    those 2 courses: <a  href="https://www.coursera.org/learn/machine-learning">https://www.coursera.org/learn/machine-learning</a>
+    and <a  href="http://classes.engr.oregonstate.edu/eecs/fall2015/cs534/">http://classes.engr.oregonstate.edu/eecs/fall2015/cs534/</a>.
+    You can download the whole article of summarizing Machine Learning at here:
+    <a target="_blank" href="http://web.engr.oregonstate.edu/%7Enguyenkh/ml-summary.pdf">http://web.engr.oregonstate.edu/~nguyenkh/ml-summary.pdf</a><br>
+    <br>
+    Our series comprise of following topics:<br>
+    <ul>
+      <li><a  target="_blank"  href="http://www.nguyenducminhkhoi.com/2015/11/introduction-to-machine-learning.html">Section
+          1</a>: Introduction, Linear regression, Generative and Discriminative
+        Model, Perceptron, Logistic Regression, Naive Bayes and Gaussian
+        Discriminant Analysis</li>
+      <li><a  target="_blank"  href="http://www.nguyenducminhkhoi.com/2015/12/introduction-to-machine-learning.html">Section
+          2</a>: Four important Discriminative Models: K-Nearest Neighbors,
+        Support Vector Machine, Decision Tree and Neural Network <strong>(this
+          post)</strong></li>
+      <li><a  target="_blank"  href="http://www.nguyenducminhkhoi.com/2015/12/introduction-to-machine-learning_8.html">Section
+          3</a>: Ensemble Methods (Bagging, Random Forest, Boosting) and
+        Clustering (HAC, KMeans, GMM, Spectral Clustering)</li>
+      <li><a  target="_blank"  href="http://www.nguyenducminhkhoi.com/2015/12/introduction-to-machine-learningsection4.html">Section
+          4</a>: Dimension Reduction, Major problems in Machine Learning, ML
+        libraries, and Summaries.</li>
+    </ul>
+    <br>
+    In the last section, I discussed the Introduction to Machine Learning
+    comprising of some important terms and definitions. Especially, I talked
+    about 4 basic machine learning algorithms, i.e. Linear Regression,
+    Perceptron, Logistic Regression, Naive Bayes and Gaussian Discriminant
+    Analysis.&nbsp; Also, I discuss about Generative and Discriminative Model.
+    Today, to continue discussing of&nbsp; Classification problems, I will
+    introduce next 4 machine learning Discriminative Models, they are <strong>K
+      Nearest Neighbors (kNN)</strong>,<strong> Support Vector Machine (SVM)</strong>,<strong>
+      Decision Tree (DT) and Neural Network (NN)</strong>. All of them can be
+    used for Regression problem as well. But I don't cover in this introduction.<strong>
+    </strong>Now let's get started!<br>
+    <h3>K - Nearest Neighbors (kNN)</h3>
+    After discuss 2 Generative models Naive Bayes and LDA, we come back to a
+    famous Discriminative model kNN. It is a very simple Machine Learning model
+    used for classification and regression task. I extract some information
+    about it on <a  href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm">Wikipedia</a>
+    as follow. In both cases, the input consists of the $k$ closest training
+    examples in the feature space. The output depends on whether k-NN is used
+    for classification or regression. <br>
+    <ul>
+      <li>In k-NN classification, the output is a class membership. An object is
+        classified by a majority vote of its neighbors, with the object being
+        assigned to the class most common among its $k$ nearest neighbors (k is
+        a positive integer, typically small). If $k = 1$, then the object is
+        simply assigned to the class of that single nearest neighbor.</li>
+      <li>In k-NN regression, the output is the property value for the object.
+        This value is the average of the values of its $k$ nearest neighbors.</li>
+    </ul>
+    <p>k-NN is a type of instance-based learning, or lazy learning, where the
+      function is only approximated locally and all computation is deferred
+      until classification. The k-NN algorithm is among the simplest of all
+      machine learning algorithms. Both for classification and regression, it
+      can be useful to assign weight to the contributions of the neighbors, so
+      that the nearer neighbors contribute more to the average than the more
+      distant ones. For example, a common weighting scheme consists in giving
+      each neighbor a weight of $1/d$, where $d$ is the distance to the
+      neighbor. A commonly used distance metric for continuous variables is <strong>Euclidean
+        distance</strong>. For discrete variables, such as for text
+      classification, another metric can be used, such as the overlap metric (or
+      <strong>Hamming distance</strong>)</p>
+    <div  style="text-align: center;"><img  style="width: 217px; height: 193px;"
+         src="http://web.engr.oregonstate.edu/%7Enguyenkh/knn_1.png"><br>
+    </div>
+    The above figure is an example of k-NN classification. The test sample
+    (green circle) should be classified either to the first class of blue
+    squares or to the second class of red triangles. If $k = 3$ (solid line
+    circle) it is assigned to the second class because there are 2 triangles and
+    only 1 square inside the inner circle. If $k = 5$ (dashed line circle) it is
+    assigned to the first class (3 squares vs. 2 triangles inside the outer
+    circle). <br>
+    <br>
+    $k$ in k-NN is hyper-parameter so the best choice of $k$ depends upon the
+    data; generally, larger values of $k$ reduce the effect of noise on the
+    classification but make boundaries between classes less distinct. A good $k$
+    can be selected by various heuristic techniques like Cross-validation. <br>
+    <br>
+    We complete the k-NN model here.<br>
+    <br>
+    In the next section, I will talk about Support Vector Machine (SVM) - a very
+    popular machine learning algorithm.<br>
+    <div  style="text-align: center;">
+      <div  style="text-align: left;">
+        <div  style="text-align: center;">
+          <div  style="text-align: left;">
+            <div  style="text-align: center;">
+              <div  style="text-align: left;">
+                <h3>Support Vector Machine</h3>
+                <p>Support Vector Machine likes Perceptron in the point, it does
+                  not assume the data followed any distributions or relation
+                  like Logistic Regression, Naive Bayes and LDA. So it is a very
+                  robust method when applying for unknown distribution data.
+                  When we talk about SVM, we talk about 2 very important
+                  features of SVM, those are Margin and Kernel.</p>
+                <p>To begin, we talk about its <strong>margin</strong>. In
+                  other previous machine learning models, we draw a separate
+                  line between many classes. However, given a linearly separable
+                  2 classes data, we can draw many separate lines that satisfy
+                  the constraints that linearly separate 2 classes. So which
+                  line do you choose? As natural, you will choose the one that
+                  have the largest distance to the closest elements of 2
+                  classes. That is the idea behind the SVM. The closest elements
+                  are called <strong>Support Vectors</strong>, that's why SVM
+                  got that name. The whole problem of SVM is a convex
+                  optimization. </p>
+                <p>First, let's defined a <strong>functional margin</strong>.
+                  Let $d: w^Tx + b = 0$ be a linear decision boundary. The
+                  functional margin for a point $(x^i,y^i)$ is defined as:</p>
+                <p>\[y^i(w^Tx^i + b)\]</p>
+                <p>For a fixed $w$ and $b$, the larger functional value, the
+                  more confidence we have about the prediction. Next, we want to
+                  find $w$ and $b$ so we can relax to get a <strong>possible
+                    goal</strong>: <span  style="font-style: italic;">find a
+                    set of $w$ and $b$ so that all training data points will
+                    have large (maximum) functional margin.</span> However, we
+                  can arbitrarily change the functional margin without changing
+                  the boundary at all. So what we need here is geometric margin
+                  as follow:</p>
+                <p>\[\frac{y^i(w^Tx^i + b)}{||w||}\]</p>
+                <p> It measures the geometric distance between the point and the
+                  decision boundary. It can be either positive or negative:
+                  Positive if the point is correctly classified or Negative if
+                  the point is misclassified. </p>
+                <div  style="text-align: center;"><img  style="width: 175px; height: 211px;"
+                     alt=""
+                     src="geo.png"></div>
+                <p>We can represent the constrained optimization as follow:</p>
+                <p>\[\max \limits_{w,b} \gamma \]</p>
+                <p>\[s.t: \frac{y^i(w^Tx^i + b)}{||w||} \geq \gamma, i = 1,.,N
+                  \]</p>
+                <p>We can transform this optimization to new form as follow:</p>
+                <p>\[\max \limits_{w,b} \frac{1}{2}||w||^2 \]</p>
+                <p>\[s.t: y^i(w^Tx^i + b) \geq 1, i = 1,.,N \]</p>
+                <p>From this form, we can use <strong>Quadratic Programming</strong>
+                  (QP) with Lagrangian and solve the dual problem instead of
+                  primal (the form above).&nbsp; </p>
+                <p>Let $\alpha$ be KTT multipliers, the previous constrained
+                  problem can be expressed as:</p>
+                <p  style="text-align: center;"><img  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAakAAAA8CAYAAADc8EUfAAAMGWlDQ1BJQ0MgUHJvZmlsZQAASImVVwdYU8kWnltSCAktEAEpoTdBepXei4B0sBGSAKGEkBBU7OiigmsXURQVXQFRdC2ArBULFhYBe10QUVHWxYINlTdJAF33le+d75s7f86cc+Y/587czACgaM8SCLJQJQCy+XnCqEAfZkJiEpP0B6AABMgBMiCy2CKBd2RkGIAy2v9d3t2EtlCuWUpi/XP8v4oyhytiA4BEQpzCEbGzIT4CAK7JFgjzACC0Q73BrDyBBL+FWFUICQJAJEtwmgxrSXCKDFtLbWKifCH2A4BMZbGEaQAoSOIz89lpMI6CAGJrPofHh3gHxB7sdBYH4i6IJ2Rn50CsSIXYNOW7OGl/i5kyFpPFShvDslykQvbjiQRZrDn/Zzn+t2RniUfn0IeNmi4MipLkDOtWnZkTKsGQO3KcnxIeAbEKxBd5HKm9BN9NFwfFjtj3s0W+sGaAAQAKOCy/UIhhLVGGODPWewTbsoRSX2iPhvPygmNGcIowJ2okPprPzwoPG4mzPJ0bPIoruCL/6FGbVF5AMMRwpaFHCtJj4mU80XP5vLhwiBUgbhdlRoeO+D4sSPcNH7URiqMknA0hfpsqDIiS2WDq2aLRvDArNks6lzrEXnnpMUEyXyyBK0oIG+XA4fr5yzhgHC4/doQbBleXT9SIb5EgK3LEHqvgZgVGyeqMHRTlR4/6dubBBSarA/YogxUSKeOPvRPkRcbIuOE4CAO+wA8wgRi2FJADMgCvrb+hH/6SjQQAFhCCNMAFliOaUY946QgfPqNBAfgTIi4Qjfn5SEe5IB/qv4xpZU9LkCodzZd6ZIInEGfjmrgH7oaHwacXbLa4M+4y6sdUHJ2V6E/0IwYRA4hmYzzYkHUWbELA+ze6UNhzYXYSLvzRHL7FIzwhdBAeEW4Qugh3QBx4LI0yYjWTVyj8gTkTTAZdMFrASHYpMGbfqA1uDFk74D64O+QPueMMXBNY4vYwE2/cE+bmALXfMxSPcftWyx/nk7D+Pp8RvYK5gsMIi5SxN+M7ZvVjFN/vasSBfeiPlthy7DDWgp3BLmHHsQbAxE5hjVgrdkKCx1bCY+lKGJ0tSsotE8bhjdpY11r3WX/+x+ysEQZC6fsGedzZeZIN4ZsjmCPkpaXnMb3hF5nLDOazrSYwba1tHACQfN9ln483DOl3G2Fc/qbLPQ2ASzFUpn3TsQwAOPYEAPq7bzqD13B7rQHgRDtbLMyX6XDJgwD/ORThztAAOsAAmMKcbIEjcANewB+EgAgQAxLBDFj1dJANWc8C88BiUARKwBqwEWwB28EuUA32g0OgARwHZ8AFcAW0gxvgHlwbveAFGADvwBCCICSEhtARDUQXMUIsEFvEGfFA/JEwJApJRJKRNISPiJF5yBKkBFmHbEF2IjXIr8gx5AxyCelA7iDdSB/yGvmEYigVVUW1UWN0IuqMeqOhaAw6HU1Dc9ECdCm6Ci1DK9F9aD16Br2C3kC70BfoIAYweYyB6WGWmDPmi0VgSVgqJsQWYMVYKVaJ1WFN8F1fw7qwfuwjTsTpOBO3hOszCI/F2XguvgBfiW/Bq/F6/Bx+De/GB/CvBBpBi2BBcCUEExIIaYRZhCJCKWEP4SjhPNw7vYR3RCKRQTQhOsG9mUjMIM4lriRuIx4gniZ2EHuIgyQSSYNkQXInRZBYpDxSEWkzaR/pFKmT1Ev6QJYn65JtyQHkJDKfXEguJe8lnyR3kp+Sh+SU5IzkXOUi5Dhyc+RWy+2Wa5K7KtcrN0RRpphQ3CkxlAzKYkoZpY5ynnKf8kZeXl5f3kV+ijxPfpF8mfxB+Yvy3fIfqSpUc6ovdRpVTF1FraKept6hvqHRaMY0L1oSLY+2ilZDO0t7SPugQFewUghW4CgsVChXqFfoVHipKKdopOitOEOxQLFU8bDiVcV+JTklYyVfJZbSAqVypWNKt5QGlenKNsoRytnKK5X3Kl9SfqZCUjFW8VfhqCxV2aVyVqWHjtEN6L50Nn0JfTf9PL1XlahqohqsmqFaorpftU11QE1FzV4tTm22WrnaCbUuBsYwZgQzshirGYcYNxmfxmmP8x7HHbdiXN24znHv1cere6lz1YvVD6jfUP+kwdTw18jUWKvRoPFAE9c015yiOUuzQvO8Zv941fFu49nji8cfGn9XC9Uy14rSmqu1S6tVa1BbRztQW6C9Wfusdr8OQ8dLJ0Nng85JnT5duq6HLk93g+4p3edMNaY3M4tZxjzHHNDT0gvSE+vt1GvTG9I30Y/VL9Q/oP/AgGLgbJBqsMGg2WDAUNdwsuE8w1rDu0ZyRs5G6UabjFqM3hubGMcbLzNuMH5mom4SbFJgUmty35Rm6mmaa1ppet2MaOZslmm2zazdHDV3ME83Lze/aoFaOFrwLLZZdEwgTHCZwJ9QOeGWJdXS2zLfstay24phFWZVaNVg9XKi4cSkiWsntkz8au1gnWW92/qejYpNiE2hTZPNa1tzW7Ztue11O5pdgN1Cu0a7V/YW9lz7CvvbDnSHyQ7LHJodvjg6OQod6xz7nAydkp22Ot1yVnWOdF7pfNGF4OLjstDluMtHV0fXPNdDrn+5Wbpluu11ezbJZBJ30u5JPe767iz3ne5dHkyPZI8dHl2eep4sz0rPR14GXhyvPV5Pvc28M7z3eb/0sfYR+hz1ee/r6jvf97Qf5hfoV+zX5q/iH+u/xf9hgH5AWkBtwECgQ+DcwNNBhKDQoLVBt4K1g9nBNcEDIU4h80POhVJDo0O3hD4KMw8ThjVNRieHTF4/+X64UTg/vCECRARHrI94EGkSmRv52xTilMgp5VOeRNlEzYtqiaZHz4zeG/0uxidmdcy9WNNYcWxznGLctLiauPfxfvHr4rsSJibMT7iSqJnIS2xMIiXFJe1JGpzqP3Xj1N5pDtOKpt2cbjJ99vRLMzRnZM04MVNxJmvm4WRCcnzy3uTPrAhWJWswJThla8oA25e9if2C48XZwOnjunPXcZ+muqeuS32W5p62Pq0v3TO9NL2f58vbwnuVEZSxPeN9ZkRmVeZwVnzWgWxydnL2Mb4KP5N/LkcnZ3ZOh8BCUCToynXN3Zg7IAwV7hEhoumixjxVeNRpFZuKfxJ353vkl+d/mBU36/Bs5dn82a1zzOesmPO0IKDgl7n4XPbc5nl68xbP657vPX/nAmRByoLmhQYLly7sXRS4qHoxZXHm4t8LrQvXFb5dEr+kaan20kVLe34K/Km2SKFIWHRrmduy7cvx5bzlbSvsVmxe8bWYU3y5xLqktOTzSvbKyz/b/Fz28/Cq1FVtqx1XV6whruGvubnWc231OuV1Bet61k9eX7+BuaF4w9uNMzdeKrUv3b6Jskm8qassrKxxs+HmNZs/b0nfcqPcp/zAVq2tK7a+38bZ1lnhVVG3XXt7yfZPO3g7bu8M3FlfaVxZuou4K3/Xk91xu1t+cf6lZo/mnpI9X6r4VV3VUdXnapxqavZq7V1di9aKa/v2TdvXvt9vf2OdZd3OA4wDJQfBQfHB578m/3rzUOih5sPOh+uOGB3ZepR+tLgeqZ9TP9CQ3tDVmNjYcSzkWHOTW9PR36x+qzqud7z8hNqJ1ScpJ5eeHD5VcGrwtOB0/5m0Mz3NM5vvnU04e/3clHNt50PPX7wQcOFsi3fLqYvuF49fcr107LLz5YYrjlfqWx1aj/7u8PvRNse2+qtOVxvbXdqbOiZ1nOz07Dxzze/ahevB16/cCL/RcTP25u1b02513ebcfnYn686ru/l3h+4tuk+4X/xA6UHpQ62HlX+Y/XGgy7HrRLdfd+uj6Ef3etg9Lx6LHn/uXfqE9qT0qe7Tmme2z473BfS1P5/6vPeF4MVQf9Gfyn9ufWn68shfXn+1DiQM9L4Svhp+vfKNxpuqt/ZvmwcjBx++y3439L74g8aH6o/OH1s+xX96OjTrM+lz2RezL01fQ7/eH84eHhawhCzpUQCDDU1NBeB1FQC0RHh2gPc4ioLs/iUVRHZnlCLwn7DsjiYVRwCqvACIXQRAGDyjVMBmBDEV9pLjd4wXQO3sxtqIiFLtbGWxqPAWQ/gwPPxGGwBSEwBfhMPDQ9uGh7/shmTvAHA6V3bvkwgRnvF3mEvQ1Ukai8AP8i/HsWwvqrYnzgAAAdVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpDb21wcmVzc2lvbj4xPC90aWZmOkNvbXByZXNzaW9uPgogICAgICAgICA8dGlmZjpQaG90b21ldHJpY0ludGVycHJldGF0aW9uPjI8L3RpZmY6UGhvdG9tZXRyaWNJbnRlcnByZXRhdGlvbj4KICAgICAgICAgPHRpZmY6T3JpZW50YXRpb24+MTwvdGlmZjpPcmllbnRhdGlvbj4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+Cjl0tmoAABQPSURBVHgB7Z0/6ObE88fz+WEhYiEWIhYiIoeIiIiFHFeIpYhYiYiIyGFxiFiIhViJWIiViIWFhYiIWIiIlRxXiFiIiIiIiMUVIhZyhVgJn+++9reTm+yz+bPJ5nmSPBN4SHazOzvzntmZ/ZPkqSo7NofAm2++eXr77bef/vHHH6ebE84EMgQMgVUjgF/CP73//vvmn1atyZHM33vvvSj+9NlnnzUDGImhVTMEDIF5EQj+6fSxxx4zPzUv1MuizujEcWQjlGWpxbgxBAyBBAJhJuVnVYnblrU1BGRkwlLf1mQzeQwBQ2CbCLz00kt+YG0zqm3qt5bqu+++84q+6aabLEDVqBz+grV3Bg8swaIjOiRp65CH141xsBwEgt/yfWQ5XBknRREITu/UZlFFYZ1MTPRx/fXXx3uENpiYjK4R2AoCoZ+cPvjgg9YvtqLUWA6coMuzkUgMzALS4QnLuvN9+eWXp0FfC+DOWDAEDo+A9BHrF4fXxZwc+CAVlD1nO0Y7EwFGieGBFl+TWa8t92WCaMWPAQHvw45B0GOVcbSCCWw2zZ7PbMA2PNTiG2H9ndmUzpuvdaNsCKwGgVYf9n+rEcEYLY4AzvLMmTPV5cuXi9M2gv+PwJUrV6oLFy7UcJw9e7b69NNPq3PnztV5dmEIGAKGwNYRaB2FpARn9sQTZyw7MbLXy1Gp8pZnCBgChsDMCGT5sJl5MfIzIDBawQQrC1IzaMRIGgKGQA4CrT7MlvtyYLSyhoAhYAgYAntFwILUXuG2xgwBQ8AQMARyELAglYOWlTUEDAFDwBDYKwIWpPYKtzVmCBgChoAhkIOABakctKysIRAQkK98uKRs+BY9hw9vGt6GgCFgCGwCAXGQ2cLY033ZkPkK8r0xlzi95pprRv3BJK8C8OFZaPE6gA589omYcXqxWqtFYLQPW63ER8b4aAWvNUjJVxvkK+Ok961zsHNt+l+pL9DzHzv2v2D71qS1twAEpC8tgBVjYQ4ERit4jUGKGYj+rBABauxsZqoy9Oyn5Df5kM/eX5uqHau/IgRG+7AVyXjUrI5WMEFqyCyAZSkdGOJ0SfRj2nE6zJqQWR8H+UdixYvXQckZHUEP2bWQc1zzfcG5vjyCzexDhjlwWSJN9ipL2thcMsInNsUgjkHlgHZ8/xlQbn1FWB5hFL0Gxc2IbraCcYB6uYpr8toMCnz1h2jjdEnZYtpxmrbIkzYDzwdzhiF4ex2UntGFv9gWUWc5zzVjY68t7N3NwvcWiRLQZblX9zctK321rZ/qcvu4ho82Pmk/g9dsH7YP+Yq0gbMiWmunVYTwuojMruA4UMTpknDFtON03BadpORSW0x/SFociysrTmZItUWUmSNI4WzDIGgRMq6QidYAvxRs6Zf43i77KRGkVv8I+sMPP3zyzz//nHBeoSFOZllGVG5qPZnWGgnIo9qfffbZQfX/9ddfV24W5SH8/fffK+FrjZiW4Pn8+fPVG2+8UYLU0dHA+SP0U089lZT9/vvv97a+j1l2igF8DsHnvffeq6677rpUkew8F+x8HfFnmsDqg5QW5hivf/jhBy/2XXfddXTi00n//vvv6tKlS77Tpgx8X6DccsstJ3RaOd56663GkqTkH8vZ6aI61oHjVB3zVy44bWyqjdYLL7xQvf322223Z82HL+d3ThgYuusibd1xxx2ezocffrhDb/VBiqkvzorzjnRHkCGO8emnnz4Caa+KyGiT2cvrr79eoXtmLhKwr5ba75Xbmzpxy451o48//nh9fUwX6OIYB02ldOwGXZWbLXWSw9YObe+dDGbelFm369ftNdngxLj4scYfTyVJh6fA/P6PlIs3zSSfzWTuCd0UTRwNNNlslk1W6lOXdU5GxuKAyGeKqTdiuRfWvT3fSNdFs299tKvuEH4EXZFZsIixJF+wRHYJsGFfxa/zgoHQazuHmUPnmnBb3dx8sNG6jtPwiyyOrv+xVk0b4VznxbJSXtOlTkw7TgcadVvQCD+qH/wQ3TpGxD5n4wkbAD9sB7saszcX7ymAL/qkv4C9Zp62aEfnxdfQ0/1U7pe0EaE59Ezb2haDrfrqQX5vQ+SHfjWU9BzlPP7wLD4kxRN2FvuWOZjpoomNxPajy/f5XF1W9CA+Qt+rMCiI6UyU1QJA/RQY9cQZUTdOY+BiDFwnG3f1KIPx6/vww08be+gwO0ZE/bjjtNGMHaKWWa7b6g7hJwdL6AWH5psGb/KEj74zdeFV49ZXZ+x9sNfYxWnoStB0lw2egkwNXVKe/JSNxbTjNHWXfAR9eKfn+NyRuxTvYIcNaAdGkNJ6ivtFqu3YyUigg46mFer2ygNP6CzVVikbSdEekhfkaTjWFI5DaM1RJuDWGGzIgCFuj/4zRL9xvZJpeIjtR9PnvrZPfS++phz+LEkPQbmpK0E8YaB1QNFl5RriiTq9Rk2goz2hwxnFuFNDQDHwuANQP1ZWG00dVHV7+rqt7hB+crAUpQRZK3EOmpe2a3DeV4CChzhQxGnhMxhYo5MFuRrGh+xtuohpx2lpa8nnMLjyNuz4bATtEny39QWwoj3aIFimBgFx+9opUD7Q8LNgsU3qCO3QdkymTmOXXWVK2Ejd2IiLMDD0NgpG2GEXvyOaGF0FvON+oWypQZd+leMzGpULJUoGKVjCxrAfHQ/840huk9dv0FGATbsbb7yx+uCDD1rFYL2UddP4uPXWW6vLly/H2YPS9913XxWvsTpmG5uHYSPx9M8//xxNc1BFV2gsPzlYIg+Yuw3miqDz7rvvVm4zspdFOhk48wuY9NbZV4FXX32VAUb1xRdf1E1+9dVXfiOYp95wBvBMOfZsnFOsy819kTPjdDxOwvbll18+QafST9BxyQN6zg52Hk5wnds3g6zYk8O33nwnj3p//fVXnRfz5HTn71GWfn7hwoVaR6kN/RTN//77rxO70jYSbIo+hF9qlU1kxc/gq+hr2Om3336b5JeAgR8c0s/AQej3nbts6/vvv/f7UWI30Prll1+SJPHT9KkhRyn+hrQ1pYyzzxP0Gez7FFv1QYpMjJtNeHmUlw7WFnDoHKnDdczq0UcfrR0RI4DXXnutosOmyvflXXvttZV7vLyv2N7uD+EnF0uUAtbOiJIdJSXcv//+W7ExPTJADe1Mo3SGk2MkhKMKI0BGR5UbPXtnh9Pj+OSTT6pff/21doApOUvm0Ul5LHrowSBl6oHDZFSMDeOYXIebSrKuj6NlMBAH+WATPkDdeeeddXkueHRZHHrjRiJBgKOfU0du4zjjAWobzdBOXVdocJ7DRhzO1Q033KCbab0GI2aM4Iedth0EAO47WdqK+PyStvXTTz9VL774YqWDFIELXYy1n5L8dQJR8Ca6/O23365SZPqNo7yaU1WkZRkAIeUeDkicj+TJmVkBy11MQTk7I6jrSZnUmY4clyUdT3tD3Z0lDMqllvsyaDbYmsJPDpY0Crbw6YxwRwcNpqIE02H41LqJihRNolttI3FaN6aX98ADHnFaroyfyuMg9HRe1+U6ph2n4/JLTiMnui3JY9D5Tj+gDcFZ66qvbennuhw8J5aSWvu+rouP6LPLqTai2xtzjV6C3ItZ7hPdYe+RTDv+kfvoOPZxUb3ZkwrHZFvcD3Il78eZlMWvaZv0j6AzYmB6pQ89i2JUNeS4ePFi9cQTT/jZGMteeqlhSP0tlMnFkkeowckZph89tQ0AYmzcSPqEF+keeOABcUxxkYOlWc7hAAtmEYy2Gb06g/Uj0+eee67iPY+tHzgQRoPxMvZUuZmVcdxzzz2tpFjV0Ae84NT6gofU4f2zs2fPSlL2oxovmLbRZMWhb9R/SBshQDJSd/bJKoa30XPnztWycgFOBFt3We/RNQrMkAiz4MYSLv7A8eF9RNzklStXqni2HJdZU5oAdebMGc8yuhHefZAChG+++UbyvIJYs00dXdNjpqRuRuPr02BOBE21lZNHp1rCkYMlowwcNgeOHOxeeeUVj98QWQhs6CPuYEPqzlkGWdxIyDeh39+SdyFwYs7B1UY4Jy+Hoo1zYT+DZRtxPqV4gR74fvzxxw2SOFacvxuJVrJvSx68sMyKU2MgOeRgv0Mf2CV0RZYumryY2dfOoWyEFZcff/wRvXj744zfYkClZ47wJ/aqcZj7Gl5kIIH/ZLvk888/TzbLAOjuu+9O3ttnZqktGSZK0HI62WWf6SXTK5SEEjFASsmUH9Aog1N12X46xqgsFYRk9EE5+UFbgHd59QFN6LgMT1OMhDNTPvJpk3JqicgvnzCK0zzRruT10eQ+dWtGwsVUfiADjT4stXwiM3UFX2QJMpDdeYisKXk6K2beVNj4mnE6Joe+gi00bmFT2FgjM0rEtON0VHxxSfh1TCWX40oxS99D92Apv9Auo25/j/6g20vpg/vYqy7HNbSwR2jwQ28pm0zRhJ9U2biNKTYS0+pL088Cr1434o/AUefjd8Q+gx9M+oq+9sbehy/RK2fhM0Uv+MjUrdnzwFP8lWvMX5MXxwTKxHkp5qTPDLGbVP1BeTCCsUtHoRJ5gKwMZBAtKzQcAelIwWAGV0RP6AWjkKDaVZny2oDidFfd3Hsx7TidS2+f5bF3nJ44un223dUW/LTZSCpIJWg1+jb322jS7w/pQBO8j8qSvoX9jSIwYyV4o//O2EQR0kODVJBl1oGdN1jtxGIJMdquUUFc3tLDEAijlCynQKeLR9k4KkbLba3GgSJOt9Ubkx/TjtNjaO6jjjjnJToP9MvMJRU84yBFWssgM6kYwy6a+ALai+usKb3kIAX2a/CnQ4NU8D3JWZffkyphODww8fPPPyc38TFWNvlZ5y3RltG4ioDsEeSsC7vOt7MR+8477/jN7pQTu9qaXXUhwN4g+zHyGkdX2aH3Sjl6FzQqvnXonEFv09iSPNjAAIHXBVIPf3TR/Oijj/x3FXsbW2gBAgAfCeZ4/vnnF8UlOuGZgS35U3nQRvyZBty/J6Uzxl4DGIplg1aP0nmggc7hmNh0gEJmNpvlZd4uHMGJp/pwaGx+4hD2aXDog5Gydqa8r+V4PuXFWzvyEWDmwCBNP5WUT6VZA5u6+eabm5kjUy7YDe5/bqBS8UQvNsK7k7zPlnIeXTQpT4B1tsaManDbI8UrXk33Rx6qWNLBQyw83bsknoyXTASYprMvsO/pMJ2S6a0O0inWmdqGZTp/u2uZLVU/kceyyuClFdrDqaboxEs/UgYstVxxWsqVOMe043SJNkrSABfsTet0Kn1seF/7OtgCNtGm+ymyIAf6m0LD6l5FgJWOknZ2lXLZK/jEprDhgfxm+bCy3B6AGqCEJ3YO0HrzyahYQUzVY+eDMglwE5idrODgSBqBaAI/R1MVJ+yELeaIsZcwgDBdHI0VmaD0ofA7DjBwHG1PMuUiQPBghInjgKbeCCTgdNHjPuVZNpFgJSMMXQ/65Ou8zOvJCobH0rOBTBlWVzzof9IAA7uADvoPMxnRZW0zqwPGGDYE8hEQu8+vue8adNYwC/LvaxFwSPOToCDTyLbZBwFFHD/XUi9XlhA4GvWlbWYeQwIh5eBFlso4Q0Pzou/r/IzrSQoWZzsWpww+N1OU4CJ2KvaZc3ZAiM6S5xCwNoOXCWII9CAg/aCn2EJuM6p3rNRLKKHD1iNLAk9bgEIEltPkvsyEckULMx8Z3dbVhTd46lpr5x588pNZFEQIfHGQIi1BrG4o72KSgmlf8Mpr9nhLo1fsbK5fWEY8XoBN8mNDYJIP2ztYEiBwBDITYZQqjjx28ppBNcL12XT2rvK6rr4OTntnGU5mV8KLrsO1BCe9xKfLMFuJ96R0UNVlM65HK5jZoDnEDKStqCFgCMyBwGgfNgczg2iGpTQ/EyFg4PRx5gSJECiSdCirl+EIdGH2kyzflhlmSQ0HTgAUvmLH3hecdDvIoWdXcdDSZQdej1IwgTaWw5b8BiJuxQwBQ6AkAqN8WEkGsmnJPok4cJldhX2ABj0CkzhXzhKkqBMHhEbFnoTMwiTQEewkGDE7I19IhJmXJDvP8Ehdgi00hffOSt03sxWMbKlgPyagd7Nmdw0BQ8AQ6EWg1Yct+oUwAgFf0ZYXZAk+t912284b/Th8/lpEXqQk7faM/JeNeWtcv5jXC9U6C0iwHKRPguIzzzxTPfLIIw1pefGaF5JdwB1Ep1HZEoaAIWAIjEeg1YdtxhkxK5BgNh6n8TVp382yWgm4QFkH29ZC42+0KjhFktlo21+uuBnW6H9STrVleYaAIWAIDEAgy4cNoLe8Im0PMiyP01k4QsGi5FkaMKLdCLAMPOYBHU2174lRXdauDYGNIbBtH8b+in4QYWPKGyLOthU8BIEFlBlrg9gve4HMcAl2CxDFWDAE9o2A+bB9I77n9kzBewZ8juYsSM2BqtFcCQKtPqzYX3WsBAhj0xAojgBLzTysY7Og4tAaQUOgKvZXHYbl4RBwj9lX/AcQy02pv1Q4HGfbb5mluoceeqg6f/58dfHiRS8wenjyySd7hb906dJmHlzqFdYKGAItCAS/VbmVhKrtga6Wqpa9FgQYxTtek+89rUWGtfPJUt1UGWy5byqCVn+NCIR3TBvvna5RDuO5A4GwzLTzncGOKnarIAK8fiAvkE8ha0FqCnpWd60IyLdZC3zUYK0QHAffMpti+ek4JF6OlHQyRoPyBQ+WL9AHgavtF/TVEMKCVAMOSxwBAjaLOgIlaxHDezolPrOkydp1DwI8OJH6DmJPtfo2HTW85+eDmgS7uoBdGAIbRCDMnCa/X7hBaLYtUlh22vlw7LalNukMAUNgTQiEgZjfomDlYU28G68FEGDJj1mVKb8AmEbCEDAEiiKAX8I/DV0x+B/l7uC+oAHt9gAAAABJRU5ErkJggg=="
+                     alt=""></p>
+                <p>And <span  style="color: rgb(37, 37, 37); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 22.4px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255);">the
+                    solution can be expressed as a linear combination of the
+                    training vectors:</span></p>
+                <p><span  style="color: rgb(37, 37, 37); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 22.4px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255);">\[w
+                    = \sum_{i=1}^{n}{\alpha_iy_ix_i}\]</span></p>
+                <p><br>
+                  <span  style="color: rgb(37, 37, 37); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 22.4px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255);">Only
+                    a few<span  class="Apple-converted-space"> </span></span><span
+                     style="color: rgb(37, 37, 37); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 22.4px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255);"><span
+                       class="Apple-converted-space">$\alpha_i$
+                      </span>will be greater than zero. The corresponding<span  class="Apple-converted-space">
+                      $x_i$</span></span><span  style="color: rgb(37, 37, 37); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 22.4px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255);"><span
+                       class="Apple-converted-space">
+                    </span>are exactly the<span  class="Apple-converted-space">&nbsp;</span></span><i
+                     style="color: rgb(37, 37, 37); font-family: sans-serif; font-size: 14px; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 22.4px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">support
+                    vectors</i><span  style="color: rgb(37, 37, 37); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 22.4px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255);">,
+                    which lie on the margin and satisfy<span  class="Apple-converted-space">
+                      $y_i(w.x_i-b)=1$</span></span><span  style="color: rgb(37, 37, 37); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 22.4px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255);">.
+                    <br>
+                  </span></p>
+                <div  style="text-align: center;"><img  style="width: 398px; height: 266px;"
+                     alt="geometrical"
+                     src="geometrical.png"></div>
+                <p><span  style="color: rgb(37, 37, 37); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 22.4px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255);">We
+                    can compute $b$:</span></p>
+                <p><span  style="color: rgb(37, 37, 37); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 22.4px; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 255, 255);">\[b
+                    = \frac{1}{N_{SV}}{\sum_{i=1}^{N_{SV}}{w.x_i-y_i}}\]</span></p>
+                <p>We have the dual form:</p>
+                <img  style="width: 594px; height: 325px;"  alt=""  src="svm.png"><br>
+                In practice, we can just regard the QP solver as a "black-box"
+                without bothering how it works. For classifying a new input $z$,
+                we compute:<br>
+                \[A = w \cdot z + b =
+                (\sum_{j=1}^{s}{\alpha_{t_j}y^{t_j}x^{t_j}})\cdot z + b =
+                \sum_{j=1}^{s}{\alpha_{t_j}y^{t_j}(x^{t_j}}\cdot z) + b\]<br>
+                classify $z$ as Positive if $A &gt; 0$ and Negative otherwise.
+                $w$ need not be computed/stored explicitly, we can store the
+                $\alpha_i$'s, and classify $z$ by using the above calculation,
+                which involves taking the dot product between training examples
+                and the new example $z$. <br>
+                <br>
+                Up to this point, we can let SVM solve the linearly separable
+                data. However, how does SVM deal with noise? The real data must
+                contain noise so using maximum margin SVM is not robust to
+                noise. Thus, we come to the new type of SVM called <strong>Soft
+                  Margin</strong> SVM. <br>
+                <div  style="text-align: center;"><img  style="width: 564px; height: 272px;"
+                     alt="softSVM"
+                     src="softSVM.png"><br>
+                  <div  style="text-align: left;"><br>
+                    We allow functional margins to be less than 1 (could even be
+                    &lt; 0). The $\xi$&nbsp; can be viewed as the "errors" of
+                    our fat decision boundary. We have a tradeoff between making
+                    the decision boundary fat and minimizing the error.
+                    Parameter $c$ controls the tradeoff. Large $c$: $\xi$'s
+                    incur a large penalty, so the optimal solution will try to
+                    avoid them, that means margin will be smaller than 1. Else,
+                    small $c$: small cost for $\xi$'s, we can sacrifice some
+                    training examples to have a large classifier margin. $c$
+                    puts a box-constraints on $\alpha$, weights of support
+                    vectors. It limits the influence of individual support
+                    vectors (maybe outliers). $c$ is hyper-parameter to be set,
+                    so we can use cross-validation to do so.&nbsp;&nbsp;&nbsp; <br>
+                    <br>
+                    And the next important features of SVM as I said above is <strong>Kernel
+                      Function</strong>. It helps SVM to deal with non-linearly
+                    separable data. I said this problem before in linear
+                    regression. With Linear Regression, we use high order
+                    polynomial to divide non-linearly separable data. However,
+                    with SVM, we use a different approach that call kernel
+                    trick. We map the input to higher dimensional space can
+                    solve the linearly inseparable cases.<br>
+                    <div  style="text-align: center;"><img  style="width: 439px; height: 251px;"
+                         alt="kernel"
+                         src="kernel.png"><br>
+                      <div  style="text-align: left;"><br>
+                        A function $k(x_i,x_j)$ is called a kernel function if
+                        $k(x_i,x_j)=&lt;\phi(x_i),\phi(x_j)&gt;$ for some
+                        $\phi$. For example, $K(a,b) = (a\cdot b + 1)^2$. This
+                        is equivalent to map to the quadratic space! In
+                        practice, we specify the kernel function without
+                        explicitly stating the transformation $\phi$. Given a
+                        kernel function, finding its corresponding
+                        transformation can be very cumbersome. A kernel function
+                        can be viewed as computing some similarity measure
+                        between objects. We can apply this kernel trick in SVM
+                        as follow:<br>
+                        <img  style="width: 363px; height: 241px;"  alt=""  src="kernel_svm.png"><br>
+                        We have more common kernel functions:<br>
+                        <img  style="width: 427px; height: 295px;"  alt=""  src="more_kernel.png"><br>
+                        Here are some notes with kernel function: <br>
+                        <ul>
+                          <li> In practice, we often try different kernel
+                            functions and use cross-validation to choose </li>
+                          <li> Linear kernel, polynomial kernels (with low
+                            degrees) and RBF kernels are popular choices</li>
+                          <li> One can also construct a kernel using linear
+                            combinations of different kernels and learn the
+                            combination parameters (kernel learning)</li>
+                          <li> Selecting the kernel parameter and $c$ is very
+                            strong impact on performance and often the optimal
+                            range is reasonably large</li>
+                        </ul>
+                        <p>When comparing to Logistic Regression (another
+                          Discriminative Model), we have the following notices:</p>
+                        <ul>
+                          <li>If $n$ (# features) is large and $m$ (# of
+                            training example) is small: we should use Logistic
+                            regression or SVM with linear kernel.</li>
+                          <li>If $n$ is small and $m$ is intermediate, we should
+                            use RBF.</li>
+                          <li>If $n$ is small and $m$ is large, SVM will be slow
+                            to run with RBF kernel. We could manually create or
+                            add more features and apply SVM with RBF kernel or
+                            use logistic regression of SVM with linear kernel.</li>
+                          <li>Logistic regression and SVM with a linear kernel
+                            are pretty similar. They do similar thing and get
+                            similar performance.</li>
+                        </ul>
+                        <p>That completes all basic information about SVM. Next
+                          we move on another Discriminative model called
+                          Decision Tree.</p>
+                        <h3>Decision Trees</h3>
+                        <p>Decision trees have many appealing properties. They
+                          are similar to the human decision process, and easy to
+                          understand. They deal with both discrete and
+                          continuous features. With highly flexible hypothesis
+                          space, as the # of nodes (or depth) of the tree
+                          increase, decision tree can represent increasingly
+                          complex decision boundaries as the following figure.</p>
+                        <div  style="text-align: center;"><img  style="width: 517px; height: 253px;"
+                             alt="tree"
+                             src="tree.png"></div>
+                        <p>Like SVM, we have to set up a <strong>possible goal</strong>
+                          for Decision tree is: <em>finding a decision tree $h$
+                            that achieves minimum error on training data. </em>With
+                          that possible goal, we have the greedy algorithm for
+                          finding $h$. Instead of trying to optimize the whole
+                          tree together, we try to find one test at a time. We
+                          assume all features are discrete values. Remember that
+                          this algorithm is not guaranteed to find an optimal
+                          decision tree.</p>
+                        <div  style="text-align: left;"><img  style="width: 496px; height: 193px;"
+                             alt=""
+                             src="tree_alg.png"><br>
+                          The problem here is how to choose the best test to
+                          choose the best attribute. There are many different
+                          tests, at here, we choose <strong>mutual information</strong>
+                          (or <strong>information gain</strong> criterion) test
+                          to present because it is quite easy to understand and
+                          have good performance in general. The first time to
+                          know is <strong>Entropy. </strong>In information
+                          theory, entropy is the measure of uncertainty of a
+                          random variable. Given a set of training examples $S$
+                          and $y$ denote the label of an example randomly draw
+                          from $S$. If all examples belong to one class, $y$ has
+                          $0$ entropy. If $y$ takes positive and negative values
+                          with a 50% - 50% chance, we have the highest amount of
+                          uncertainty in $y$ or $entropy = 1$.&nbsp; Entropy can
+                          be calculated by this formula:<br>
+                          \[H(x) = \sum_{i=1}^{k}{p_i\log_2{\frac{1}{p_i}}} =
+                          -\sum_{i = 1}^{k}{p_i\log_2{p_i}}\]<br>
+                          <div  style="text-align: center;"><img  style="width: 536px; height: 201px;"
+                               alt=""
+                               src="tree_example.png"><br>
+                            <img  style="width: 564px; height: 257px;"  alt=""  src="tree_example_2.png"><br>
+                            <div  style="text-align: left;">With the above
+                              example, we will choose to split the data with the
+                              feature "Outlook", which has higher information
+                              gain value. However, with this test, there is a
+                              problem that multi-nomial features (which has more
+                              than 2 possible values) will have higher
+                              information gain in general. This is called the
+                              bias, to avoid this, we can rescale the
+                              information gain as follow:<br>
+                              \[\arg \max \limits_j \frac{H(y) -
+                              H(y|x_j)}{H(x_j)}\].<br>
+                              Next, how we deal with continuous features. We
+                              test against a threshold $\theta_j$ for $x_j$.
+                              First we sort the examples according to $x_j$.
+                              Move the threshold $\theta$ from the smallest to
+                              the largest value. Select $\theta$ that gives the
+                              best information gain. Note that, we only need to
+                              compute information gain when class label changes.<br>
+                              Decision tree has a very flexible hypothesis
+                              space. As the nodes increase, we can represent
+                              arbitrarily complex decision boundaries. This can
+                              lead to over-fitting (due to noise and outliers).
+                              To avoid Over-fitting, we can early stop, which
+                              means to stop growing the tree when data split
+                              does not offer large benefit. Or we can use post
+                              pruning. One thing to note here is Decision tree
+                              has a well-known implementation called <strong>C4.5</strong>
+                              by Ross Quinlan. <br>
+                              <br>
+                              We complete all basic information about decision
+                              tree here. Next, we talk about the very famous
+                              model, and gain the current attention from many ML
+                              researchers around the world.<br>
+                              <br>
+                              <h3>Neural Network</h3>
+                              <p>Neural Network is also known as <strong>Artificial
+                                  Neural Network</strong> or ANN, it stimulates
+                                the activity of a neuron in biological neural
+                                networks. To study about ANN, we first talk
+                                about its smallest component called Neuron. </p>
+                              <div  style="text-align: center;"><img  style="width: 350px; height: 179px;"
+                                   alt=""
+                                   src="neuron.png"><br>
+                                <div  style="text-align: left;">It receives $n$
+                                  inputs (plus a bias term), then multiplies
+                                  each input by its weight. Next it applies <strong>activation
+                                    function</strong> to the sum of results and
+                                  finally outputs result. Activation function
+                                  controls whether a neuron is "active" or
+                                  "inactive". There are several common
+                                  activation functions. For example, <strong>Threshold
+                                    function</strong> (outputs 1 when input is
+                                  positive and 0 otherwise, similar to
+                                  perceptron). Another activation function is <strong>sigmoid
+                                    function </strong>that we use in Logistic
+                                  Regression, this function has a good property
+                                  for optimization is that it is differentiable.<br>
+                                  \[\frac{1}{1+e^{-x}}\]<br>
+                                  Next, we move on to basic multilayer Neural
+                                  Network<br>
+                                  <div  style="text-align: center;"><img  style="width: 542px; height: 233px;"
+                                       alt=""
+                                       src="multilayer.png"><br>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div  style="text-align: left;">In <strong>Input
+                                layer</strong>, the number of neurons comprising
+                              that layer is equal to the number of features
+                              (columns) in your data. Some NN configurations add
+                              one additional node for a bias term. Each <strong>Hidden
+                                layer</strong> receives its inputs from the
+                              previous layer and forwards its outputs to the
+                              next - feed forward structure. <strong>Output
+                                layer</strong>: sigmoid activation function for
+                              <strong>classification</strong>, and linear
+                              activation function for <strong>regression</strong>.<br>
+                              <br>
+                              NN has a very powerful representational ability.
+                              With the combination of different weights of each
+                              input and sigmoid function, it can represent any
+                              Boolean Formula and arbitrary function.&nbsp; <br>
+                              <div  style="text-align: center;"><img  style="width: 526px; height: 325px;"
+                                   alt=""
+                                   src="boolean.png"><br>
+                                <div  style="text-align: left;">Before going to
+                                  deeper the action of NN, I will discuss some
+                                  terms used in NN:<br>
+                                  <div  style="text-align: left;"><img  style="width: 501px; height: 373px;"
+                                       alt=""
+                                       src="term.png"><br>
+                                    <br>
+                                    NN will find the best $w_{i,j}$ for the
+                                    whole network, we also use Gradient Descent
+                                    as in Linear Regression. We have to minimize
+                                    the mean squared error (MSE) on the training
+                                    set.<br>
+                                    \[J(W) =
+                                    \frac{1}{2}\sum_{i=1}^{N}{(\hat{y}^i -
+                                    y^i)^2}\]<br>
+                                    \[J_i(W) = \frac{1}{2}(\hat{y}^i - y^i)^2\]<br>
+                                    A useful fact: the derivative of the sigmoid
+                                    activation function is <br>
+                                    \[\frac{d\sigma(x)}{dx}=
+                                    \sigma(x)(1-\sigma(x))\]<br>
+                                    After calculating all $a_i$ from input layer
+                                    to output layer to get the final $\hat{y}$.
+                                    We next calculate the special term call
+                                    ''error" $\delta$ from output layer and push
+                                    back to input layer. this process called <strong>Back
+                                      Propagation</strong>. We calculate the
+                                    "error" as follow. If current node is in
+                                    output layer, for example node 9 in the
+                                    above figure: $\delta^i_9 = (\hat{y}^i -
+                                    y^i)\hat{y}^i(1-\hat{y}^i)$. If current node
+                                    is in hidden layer, for example node 6 in
+                                    the above figure, $\delta^i_6 = \delta^i_9
+                                    \cdot w_{9,6} \cdot a^i_6 (1-a^i_6)$. Or we
+                                    can have general form: \[\delta =
+                                    \text{activation functon}\cdot \text{sum of
+                                    signal with weights}\]
+                                    <div  style="text-align: center;">
+                                      <div  style="text-align: left;">We have
+                                        the following back propagation training:<br>
+                                        <img  style="width: 436px; height: 213px;"
+                                           alt=""
+                                           src="back.png"><br>
+                                        Put it altogether, we have the following
+                                        back propagation:<br>
+                                        <img  style="width: 535px; height: 340px;"
+                                           alt=""
+                                           src="simple.png"><br>
+                                        For Batch Gradient Descent, we get the
+                                        $\sum_{i=1}^{N}\partial_WJ_i(W)$ for
+                                        each example $i$. Then take a gradient
+                                        descent step. With online or stochastic
+                                        Gradient Descent, we take a gradient
+                                        descent step with $\partial_WJ_i(W)$ as
+                                        it is computed in above algorithm. Some
+                                        important notice on training:<br>
+                                        <ul>
+                                          <li> No guarantee of convergence, may
+                                            oscillate or reach local minima.</li>
+                                          <li> In practice, many large networks
+                                            can be adequately trained on large
+                                            amounts of data for realistic
+                                            problems</li>
+                                          <li> Many epochs (thousands) may be
+                                            needed for adequate training, large
+                                            data sets may require hours or days
+                                            of CPU time.</li>
+                                          <li> Termination criteria can be:
+                                            Fixed number of epochs, Threshold on
+                                            training set error, or Increased
+                                            error on a validation set.</li>
+                                        </ul>
+                                        <p>Notes on Proper Initialization:</p>
+                                        <img  style="width: 463px; height: 292px;"
+                                           alt=""
+                                           src="init.png">
+                                        <p>Next, we talk about some problems
+                                          with NN. Over-training prevention and
+                                          over-fitting prevention</p>
+                                        <img  alt=""  style="width: 552px; height: 357px;"
+                                           src="overtrain.png"><br>
+                                        <img  style="width: 519px; height: 334px;"
+                                           alt=""
+                                           src="overfit.png"><br>
+                                        <img  style="width: 507px; height: 365px;"
+                                           alt=""
+                                           src="io.png"><br>
+                                        With a basic neural network, we can
+                                        build up another powerful network called
+                                        deep learning that gain the recent
+                                        attention of ML researchers. I will not
+                                        discuss deep learning in these series. I
+                                        will try my best to cover this knowledge
+                                        later. Up to this point, we complete the
+                                        section 2 of series "Introduction to
+                                        Machine Learning." Hope you enjoy
+                                        reading my blogs.</div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p> </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
